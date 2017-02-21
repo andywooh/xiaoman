@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	
+	<!-- DispatcherServlet -->
+	<servlet>
+	 		<servlet-name>springmvc</servlet-name>
+	 		<!-- 前端控制器 -->
+	 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	 		<!-- 配置springmvc加载配置文件
+	 		 contextConfigLocation （处理器映射器HandllerMapping  处理器适配器HandllerAdapter  视图解析器ViewResolver 等等 ） -->
+	 		<init-param>
+	 			<param-name>contextConfigLocation</param-name>  <!-- 此处为固定写法 -->
+	 			<param-value>classpath:spring/applicationContext.xml</param-value>  <!-- classpath指tomcat的webapps下对应工程的/WEB-INF/classes/下   applicationContext.xml配置文件名可变 -->
+	 		</init-param>
+	 		<load-on-startup>1</load-on-startup>  <!-- 服务器启动后就实例化DispatcherServlet对象 -->
+	</servlet>
+	
+	<!-- 后缀为xx的请求会被springmvc的 DispatcherServlet处理-->
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 乱码问题  提交的数据必须是POST请求，否则不起作用-->
+ 	<filter>
+	 	<filter-name>encodingfilter</filter-name>
+	 	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	 	<init-param>
+	 		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	 
+	<filter-mapping>
+		<filter-name>encodingfilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+</web-app>
