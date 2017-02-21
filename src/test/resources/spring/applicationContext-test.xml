@@ -19,8 +19,6 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
-	 
- 	<util:properties id="details" location="classpath:conf/details.properties"></util:properties>
 	
 	<!-- 组件扫描 -->
 	<context:component-scan base-package="com.andywooh"/>
