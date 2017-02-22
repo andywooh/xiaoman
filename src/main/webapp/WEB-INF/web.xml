@@ -24,6 +24,7 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	
 	<!-- 乱码问题  提交的数据必须是POST请求，否则不起作用-->
  	<filter>
 	 	<filter-name>encodingfilter</filter-name>
