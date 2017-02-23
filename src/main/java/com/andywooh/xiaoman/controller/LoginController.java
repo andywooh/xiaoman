@@ -20,7 +20,7 @@ public class LoginController extends AbstractController{
 	public String login(User user) {
 		System.out.println("hahahhahhaha");
 		 boolean isloggin = loginService.login(user);
-		 if(isloggin) {
+		 if	(isloggin) {
 			 return "mainpage";
 		 } else {
 			 return "errorpage";
