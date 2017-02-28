@@ -12,7 +12,7 @@
 
   <properties>
   	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  	<spring.version>4.1.6.RELEASE</spring.version>
+  	<spring.version>4.3.6.RELEASE</spring.version>
   	<spring.test.version>4.1.6.RELEASE</spring.test.version>
   	<junit.version>4.11</junit.version>
   	<servlet.version>3.1.0</servlet.version>
@@ -52,6 +52,32 @@
       <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
+	<dependency>
+	    <groupId>org.webjars</groupId>
+	    <artifactId>bootstrap</artifactId>
+	    <version>3.3.7</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.webjars</groupId>
+	    <artifactId>jquery</artifactId>
+	    <version>3.1.1-1</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.springmodules/spring-modules-validation -->
+	<dependency>
+	    <groupId>org.springmodules</groupId>
+	    <artifactId>spring-modules-validation</artifactId>
+	    <version>0.8</version>
+	</dependency>
+
+
+<!-- https://mvnrepository.com/artifact/javax.validation/validation-api -->
+<dependency>
+    <groupId>javax.validation</groupId>
+    <artifactId>validation-api</artifactId>
+    <version>1.1.0.Final</version>
+</dependency>
+
+
   </dependencies>
   
 <build>
@@ -62,7 +88,7 @@
 	  		<version>9.4.1.v20170120</version>
 	  		<configuration>
 	  			<webApp>
-      				<contextPath>/xiaoman</contextPath>
+      				<contextPath>/</contextPath>
     			</webApp>
 	  		</configuration>
 		</plugin>

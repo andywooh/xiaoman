@@ -11,7 +11,7 @@ public class LoginService implements IloginService {
 
 	public boolean login(User user) {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	public void logout(HttpSession session) {
