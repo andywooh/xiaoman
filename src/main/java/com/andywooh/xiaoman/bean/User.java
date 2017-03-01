@@ -10,8 +10,6 @@ import javax.validation.constraints.Size;
 
 public class User{
 	private Integer id;
-	@NotNull
-	@Size(min=5, max=16)
 	private String userName;
 	private String passWord;
 
