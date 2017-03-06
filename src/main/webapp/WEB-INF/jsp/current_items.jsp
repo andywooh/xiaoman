@@ -15,77 +15,26 @@
 	<div class="row clearfix">
 		<br/>
 		<div class="col-md-12 column">
-			<nav class="navbar navbar-default" role="navigation">
-				<div class="navbar-header" >
-					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> 
-					 	<span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-					 </button> 
-					 <a class="navbar-brand" href="#">当月</a>
-				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li>
-							 <a href="#">历史</a>
-						</li>
-						<li>
-							 <a href="#">统计</a>
-						</li>
-						<li>
-							 <a href="#">统计</a>
-						</li>						
-					</ul>
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown">
-							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">其它<strong class="caret"></strong></a>
-							<ul class="dropdown-menu">
-								<li>
-									 <a href="#">Action</a>
-								</li>
-								<li>
-									 <a href="#">Another action</a>
-								</li>
-								<li>
-									 <a href="#">Something else here</a>
-								</li>
-								<li class="divider">
-								</li>
-								<li>
-									 <a href="#">Separated link</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</nav>
+			<jsp:include page="nav.jsp"></jsp:include>
 
 			<div class="row clearfix">
+				<!-- 数据录入 -->
+				<div class="col-md-6 column">
+					<div>
+						<img width="80%" src="${pageContext.request.contextPath}/static/template.jpg"/>
+					</div>
+					<br/>
+					
+				</div>
+				
 				<div class="col-md-6 column">
 					<form role="form" class="form-inline">
 						<div class="form-group">
 							 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="关键词"/>
 						</div>
-						<div class="form-group">
-						        <div class='col-sm-12'>
-						            <div class="form-group">
-						                <div class='input-group date' id='datetimepicker1'>
-						                    <input type='text' class="form-control" placeholder="月份" />
-						                    <span class="input-group-addon">
-						                        <span class="glyphicon glyphicon-calendar"></span>
-						                    </span>
-						                </div>
-						            </div>
-						        </div>
-						        <script type="text/javascript">
-						            $(function () {
-						                $('#datetimepicker1').datetimepicker({
-						                   locale:"zh-cn",
-						                   viewMode: 'months',
-						                   format: 'MM/YYYY'
-						                });
-						            });
-						        </script>
-						</div>
+						
 						<button type="submit" class="btn btn-success glyphicon glyphicon-search">查询</button>
+						<button type="submit" class="btn btn-warning glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal">记一笔</button>
 					</form>
 				
 					<table class="table table-striped table-hover table-condensed">
@@ -105,7 +54,7 @@
 								<td class="col-md-1">100</td>
 								<td class="col-md-1">交通</td>
 								<td class="col-md-2">
-									<a href="#" class="btn btn-info btn-sm">
+									<a href="#" class="btn btn-warning btn-sm">
 										<span class="glyphicon glyphicon-edit"></span> 
 		        					</a>   						
 									<a href="#" class="btn btn-danger btn-sm">
@@ -119,7 +68,7 @@
 								<td>100</td>
 								<td>三餐</td>
 								<td>
-									<a href="#" class="btn btn-info btn-sm">
+									<a href="#" class="btn btn-warning btn-sm">
 										<span class="glyphicon glyphicon-edit"></span> 
 		        					</a>   						
 									<a href="#" class="btn btn-danger btn-sm">
@@ -133,7 +82,7 @@
 								<td>100</td>
 								<td>交通</td>
 								<td>
-									<a href="#" class="btn btn-info btn-sm">
+									<a href="#" class="btn btn-warning btn-sm">
 										<span class="glyphicon glyphicon-edit"></span> 
 		        					</a>   						
 									<a href="#" class="btn btn-danger btn-sm">
@@ -144,62 +93,72 @@
 						</tbody>
 					</table>		
 				</div>
-		
-				<!-- 数据录入 -->
-				<div class="col-md-6 column">
-					<div>
-						<input type="text" class="form-control" placeholder="日期" aria-describedby="sizing-addon5">
-						<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
-						<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">
-						<input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon2">				
-					</div>
-					<br/>
-					<div>
-						<table class="table table-striped table-hover table-condensed">
-							<thead>
-								<tr>
-									<th>日期</th>
-									<th>明细</th>
-									<th>金额</th>
-									<th>类别</th>
-									<th>&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody >
-								<tr>
-									<td><input type="text" class="form-control" placeholder="日期" aria-describedby="sizing-addon2"></td>
-									<td><input type="text" class="form-control" placeholder="明细" aria-describedby="sizing-addon2"></td>
-									<td><input type="text" class="form-control" placeholder="金额" aria-describedby="sizing-addon2"></td>
-									<td><input type="text" class="form-control" placeholder="类别" aria-describedby="sizing-addon2"></td>
-									<td><input type="button" onclick="deletePanel(this)" value="-" /></td>
-								</tr>
-								<tr id="addPanel">
-									<td colspan="5" align="right"><input type="button" onclick="addPanel(this)" value="+" /></td>
-								</tr>
-							<tbody>
-						</table>					
-					</div>
-				</div>
-				<script type="text/javascript">
-					function addPanel(){
-						var html = "<tr>"+
-						"<td><input type=\"text\" class=\"form-control\" placeholder=\"日期\" aria-describedby=\"sizing-addon2\"></td>"+
-						"<td><input type=\"text\" class=\"form-control\" placeholder=\"明细\" aria-describedby=\"sizing-addon2\"></td>"+
-						"<td><input type=\"text\" class=\"form-control\" placeholder=\"金额\" aria-describedby=\"sizing-addon2\"></td>"+
-						"<td><input type=\"text\" class=\"form-control\" placeholder=\"类别\" aria-describedby=\"sizing-addon2\"></td>"+
-						"<td><input type=\"button\" onclick=\"deletePanel(this)\" value=\"-\" /></td>"+
-						"</tr>;";
-						$("#addPanel").before(html);
-					}
-					function deletePanel(target){
-						$(target).parents("tr").remove();
-					}
-				</script>
 			</div>
 		</div>
 	</div>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+	<div>
+		<table class="table table-striped table-hover table-condensed">
+			<thead>
+				<tr>
+					<th>日期</th>
+					<th>明细</th>
+					<th>金额</th>
+					<th>类别</th>
+					<th>&nbsp;</th>
+				</tr>
+			</thead>
+			<tbody >
+				<tr>
+					<td><input type="text" class="form-control" placeholder="日期" aria-describedby="sizing-addon2"></td>
+					<td><input type="text" class="form-control" placeholder="明细" aria-describedby="sizing-addon2"></td>
+					<td><input type="text" class="form-control" placeholder="金额" aria-describedby="sizing-addon2"></td>
+					<td><input type="text" class="form-control" placeholder="类别" aria-describedby="sizing-addon2"></td>
+					<td><input type="button" onclick="deletePanel(this)" value="-" /></td>
+				</tr>
+				<tr id="addPanel">
+					<td colspan="5" align="right">
+						<div>
+						    <button onclick="#" type="button" class="btn  btn-success btn-sm"><span class="glyphicon glyphicon-floppy-save"></span></button>
+						    <button onclick="addPanel()" type="button" class="btn  btn-info btn-sm"><span class="glyphicon glyphicon-plus"></span></button>
+						</div>
+					</td>									
+				</tr>
+			<tbody>
+		</table>					
+	</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	function addPanel(){
+		var html = "<tr>"+
+		"<td><input type=\"text\" class=\"form-control\" placeholder=\"日期\" aria-describedby=\"sizing-addon2\"></td>"+
+		"<td><input type=\"text\" class=\"form-control\" placeholder=\"明细\" aria-describedby=\"sizing-addon2\"></td>"+
+		"<td><input type=\"text\" class=\"form-control\" placeholder=\"金额\" aria-describedby=\"sizing-addon2\"></td>"+
+		"<td><input type=\"text\" class=\"form-control\" placeholder=\"类别\" aria-describedby=\"sizing-addon2\"></td>"+
+		"<td><input type=\"button\" onclick=\"deletePanel(this)\" value=\"-\" /></td>"+
+		"</tr>";
+		$("#addPanel").before(html);
+	}
+	
+	function deletePanel(target){
+		$(target).parents("tr").remove();
+	}
+</script>
 </html>
-
-
-

@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
-public class CurrentItemsController extends AbstractController {
+public class HistoryItemsController extends AbstractController {
 	
 	@Autowired
 //	private IloginService loginService;
 	
-	@RequestMapping(value = "current/list-items", method = RequestMethod.GET)
+	@RequestMapping(value = "history/list-items", method = RequestMethod.GET)
 	public String listItems() {
 
-		return "current_items";
+		return "history_items";
 
 	}
 }
