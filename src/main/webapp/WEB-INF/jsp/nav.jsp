@@ -23,10 +23,10 @@
 							 <a href="/history/list-items">历史</a>
 						</li>
 						<li>
-							 <a href="#">统计</a>
+							 <a href="/statistics">统计</a>
 						</li>
 						<li>
-							 <a href="#">设置</a>
+							 <a href="/settings">设置</a>
 						</li>						
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
