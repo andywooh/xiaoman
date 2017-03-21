@@ -35,7 +35,7 @@
 						</div>
 						
 						<button type="submit" class="btn btn-success glyphicon glyphicon-search">查询</button>
-						<button type="button" onclick="before()" class="btn btn-warning glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal">记一笔</button>
+						<button id="jiyibi" type="button"  class="btn btn-warning glyphicon glyphicon-plus" data-toggle="modal" data-target="#myModal">记一笔</button>
 					</form>
 				
 					<table class="table table-striped table-hover table-condensed">
@@ -160,7 +160,7 @@
 							<div>
 							    <button onclick="addPanel()" type="button" class="btn  btn-info btn-sm"><span class="glyphicon glyphicon-plus"></span></button>
 							</div>
-						</td>									
+						</td>
 					</tr>
 				<tbody>
 			</table>					
@@ -178,13 +178,14 @@
 
 
 </html>
+
 <script type="text/javascript">
 	function addPanel(){
 		var html = "<tr>"+
 		"<td><input type=\"text\" class=\"form-control\" placeholder=\"明细\" aria-describedby=\"sizing-addon2\"></td>"+
 		"<td><input type=\"text\" class=\"form-control\" placeholder=\"金额\" aria-describedby=\"sizing-addon2\"></td>"+
 		"<td><input type=\"text\" class=\"form-control\" placeholder=\"类别\" aria-describedby=\"sizing-addon2\"></td>"+
-		"<td><input type=\"button\" class=\"btn  btn-info btn-sm glyphicon glyphicon-plus\" onclick=\"deletePanel(this)\" /></td>"+
+		"<td><input type=\"button\"  onclick=\"deletePanel(this)\"  value=\"-\"/></td>"+
 		"</tr>";
 		$("#addPanel").before(html);
 	}
@@ -192,7 +193,29 @@
 	function deletePanel(target){
 		$(target).parents("tr").remove();
 	}
-	function before(){
-		//$("#myModal").remove();
-	}
+
+	$(function (){
+	$("#jiyibi").click(function () {
+	      $.ajax({
+	        type: "GET",
+	        url: "/sys-config/categories",  /* 注意后面的名字对应CS的方法名称 */
+	        //data: "{\"param1\":\"8888\",\"param2\":\"参数2\"}", /* 注意参数的格式和名称 */
+	        contentType: "application/json; charset=utf-8",
+	        //dataType: "json",
+	        success: function (result) {
+	          data = jQuery.parseJSON(result.d);  /*这里是否解析要看后台返回的数据格式，如果不返回表名则无需要 parseJSON */
+	          t = "<table border='1'>";
+	          $.each(data.BlogUser, function (i, item) { /* BlogUser是返回的表名 */
+	            t += "<tr>";
+	            t += "<td>" + item.UserId + "</td>";
+	            t += "<td>" + item.UserName + "</td>";
+	            t += "</tr>";
+	          })
+	          t += "</table>";
+	          $("#result").html(t);
+	        }
+	      });
+	    });      
+	});
+	
 </script>

@@ -26,7 +26,7 @@
 							 <a href="/statistics">统计</a>
 						</li>
 						<li>
-							 <a href="/settings">设置</a>
+							 <a href="/sys-config">设置</a>
 						</li>						
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
