@@ -3,7 +3,8 @@
 <html>
 
 <head>
-<title>明细</title>
+<title>当月</title>
+<link rel="shortcut icon" href="/static/icon/robot.jpg"/>
 <script src="/webjars/jquery/2.1.1/jquery.min.js"></script> 
 <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
@@ -22,10 +23,9 @@
 				<!-- 数据录入 -->
 				<div class="col-md-6 column">
 					<div>
-						<img width="80%" src="${pageContext.request.contextPath}/static/image/template.jpg"/>
+						<img width="80%" src="/static/image/template.jpg"/>
 					</div>
 					<br/>
-					
 				</div>
 				
 				<div class="col-md-6 column">
@@ -200,19 +200,15 @@
 	        type: "GET",
 	        url: "/sys-config/categories",  /* 注意后面的名字对应CS的方法名称 */
 	        //data: "{\"param1\":\"8888\",\"param2\":\"参数2\"}", /* 注意参数的格式和名称 */
+	    //    dataType: "json", 
 	        contentType: "application/json; charset=utf-8",
-	        //dataType: "json",
 	        success: function (result) {
-	          data = jQuery.parseJSON(result.d);  /*这里是否解析要看后台返回的数据格式，如果不返回表名则无需要 parseJSON */
-	          t = "<table border='1'>";
-	          $.each(data.BlogUser, function (i, item) { /* BlogUser是返回的表名 */
-	            t += "<tr>";
-	            t += "<td>" + item.UserId + "</td>";
-	            t += "<td>" + item.UserName + "</td>";
-	            t += "</tr>";
-	          })
-	          t += "</table>";
-	          $("#result").html(t);
+	         var data1 = jQuery.parseJSON('{\"1\":\"jiaotong\", \"2\":\"qita\"}');  /*这里是否解析要看后台返回的数据格式，如果不返回表名则无需要 parseJSON */
+	          alert(data1);
+	          
+	        },
+	        error: function (result){
+	        	alert("error");
 	        }
 	      });
 	    });      

@@ -3,6 +3,7 @@
 
 <head>
 <title>设置</title>
+<link rel="shortcut icon" href="/static/icon/robot.jpg"/>
 <script src="/webjars/jquery/2.1.1/jquery.min.js"></script> 
 <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>

@@ -19,7 +19,7 @@ public abstract class AbstractController {
     @ExceptionHandler
     @ResponseBody
     public void handleException(Exception ex, HttpServletResponse res) {
-
+    	System.out.println(ex);
 //        ErrorResult errorRlt;
 //        if (ex instanceof CDMRestException) {
 //            ErrorResult errorRlt = new ErrorResult();

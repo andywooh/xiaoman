@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.andywooh.xiaoman.bean.Category;
 
@@ -34,8 +35,12 @@ public class SettingsController extends AbstractController {
 
 	}	*/
 	@RequestMapping(value = "categories", method = RequestMethod.GET)
-	public String listCategories() {
-		return "hello";
+	@ResponseBody
+	public List<Category> listCategories() {
+		List<Category> categories = new ArrayList<Category>();
+		categories.add(new Category(1, "交通"));
+		categories.add(new Category(1, "其他"));
+		return categories;
 
 	}		
 }
