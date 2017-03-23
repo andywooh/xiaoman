@@ -34,12 +34,13 @@ public class SettingsController extends AbstractController {
 		return categories;
 
 	}	*/
-	@RequestMapping(value = "categories", method = RequestMethod.GET)
+	@RequestMapping(value = "categories", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<Category> listCategories() {
 		List<Category> categories = new ArrayList<Category>();
-		categories.add(new Category(1, "交通"));
-		categories.add(new Category(1, "其他"));
+		categories.add(new Category(1001, "交通"));
+		categories.add(new Category(1002, "其他"));
+		categories.add(new Category(1003, "数码"));
 		return categories;
 
 	}		
