@@ -11,6 +11,8 @@
 <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 <link type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
 <link type="text/css" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+  
+
 </head>
 
 <div class="container">
@@ -51,7 +53,7 @@
 								<td>${c.amount}</td>
 								<td>${c.category.categoryName}</td>
 								<td>
-									<a href="#" class="btn btn-warning btn-sm">
+									<a href="#" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id})">
 										<span class="glyphicon glyphicon-edit"></span> 
 		        					</a>   						
 									<a href="#" class="btn btn-danger btn-sm">
@@ -131,5 +133,21 @@
 		        	alert("Failed to get categories.");
 		        }
 		      });
-    });      
+    });
+	
+	function toEdit(id) {
+		alert(id); 
+      $.ajax({
+	        type: "GET",
+	        url: "consumption-details/" + id,
+	        //dataType: "json",
+	        contentType: "application/json; charset=utf-8",
+	        success: function (result) {
+	         //var data1 = JSON.stringify(result);  // Object --> String 
+	        },
+	        error: function (result){
+	        	alert("Failed");
+	        }
+	      });
+	}
 </script>

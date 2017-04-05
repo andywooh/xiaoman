@@ -11,7 +11,6 @@
 	      </div>
 		<div>
 			   <br/>
-			   <td>
 								<div class='col-sm-6'>
 						            <div class="form-group">
 						                <div class='input-group date' id='datetimepicker1'>
@@ -30,7 +29,6 @@
 						                });
 						            });
 						        </script>
-				</td>
 			<table class="table table-striped table-hover table-condensed">
 				<thead>
 					<tr>
@@ -46,7 +44,7 @@
 						<td><input name="note" type="text" class="form-control" placeholder="明细" aria-describedby="sizing-addon2"></td>
 						<td><input name="amount" type="text" class="form-control" placeholder="金额" aria-describedby="sizing-addon2"></td>
 						<td>
-							<select name="catetoryId" class="form-control"/>
+							<select name="catetoryId" class="form-control"></select>
 						</td>
 						<td><input type="button" onclick="deletePanel(this)" value="-" /></td>
 					</tr>
@@ -63,7 +61,7 @@
 		</div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-	        <button type="submmit" class="btn btn-primary">保存</button>
+	        <button type="submit" class="btn btn-primary">保存</button>
 	      </div>
 	    </div>
 	  </div>
