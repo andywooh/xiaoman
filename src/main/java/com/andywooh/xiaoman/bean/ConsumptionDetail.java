@@ -7,7 +7,7 @@ package com.andywooh.xiaoman.bean;
  */
 public class ConsumptionDetail
 {
-	private Integer id;
+	private int id;
 	private String occurDate;
 	private String note;
 	private Double amount;

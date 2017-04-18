@@ -36,5 +36,32 @@
 	
 	<!-- 处理静态资源 -->
 	<mvc:default-servlet-handler/>
+
+	<!-- mydatasource -->
+	<bean id="mydatasource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/xiaoman"></property>
+	</bean>
+
+	<!-- sqlsessionfactorybean 在Spring中生成一个sqlsessionfactory对象   单例的方式管理SqlSessionFactory-->
+	<bean id="sqlsessionfactorybean" class="org.mybatis.spring.SqlSessionFactoryBean">
+ 		<property name="dataSource" ref="mydatasource"></property>
+ 		<property name="mapperLocations" value="classpath:com/andywooh/xiaoman/bean/*.xml"></property>
+	</bean>
 	
+	<!-- 使用MapperScannerConfigurer替代 MapperFactoryBean来创建接口的代理对象-->
+	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 指定MapperDao接口所在包 ，自动创建接口的代理类，并放在Spring容器中。接口的名字和mapper.xml的名字一致，且在同一目录-->
+		 <!-- （原始方式是加载mapper.xml文件） -->
+		<property name="basePackage" value="com.andywooh.xiaoman.dao"></property>
+		
+		<!-- 指定带有@MapperMark标记的才当做Mapper处理    -->
+		<property name="annotationClass" value="com.andywooh.xiaoman.util.MapperMark"></property>
+		
+		<!-- sqlSessionfactorybean默认注入了， 即MapperScannerConfigurer有sqlSessionfactorybean，
+		使用sqlSessionfactorybean创建接口的代理对象 -->
+	</bean>
+
 </beans>

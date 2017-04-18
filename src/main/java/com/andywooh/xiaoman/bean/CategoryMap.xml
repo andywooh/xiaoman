@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.andywooh.xiaoman.dao.CategoryDao">
+
+	<select id="getCategories" resultMap="resultMap">
+		select * from category order by category_id
+	</select>
+ 	<resultMap id="resultMap" type="com.andywooh.xiaoman.bean.Category">
+		<id property="id" column="id"/>    <!-- 主键字段映射用id  id属性接收id字段的值   （联合主键需要配置多个id） -->
+		<result property="categoryId" column="category_id"/>
+		<result property="categoryName" column="category_name" />	
+	</resultMap>
+</mapper>

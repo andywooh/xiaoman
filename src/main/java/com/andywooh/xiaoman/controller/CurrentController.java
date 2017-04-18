@@ -1,60 +1,64 @@
 package com.andywooh.xiaoman.controller;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.andywooh.xiaoman.bean.Category;
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
+import com.andywooh.xiaoman.bean.Page;
+import com.andywooh.xiaoman.service.CategoryService;
+import com.andywooh.xiaoman.service.ConsumptionDetailService;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 
 @Controller
 public class CurrentController extends AbstractController {
 	
-//	private IloginService loginService;
+	@Autowired
+	private ConsumptionDetailService consumptionDetailService;
+	@Autowired
+	private CategoryService categoryService;
 	
 	List<ConsumptionDetail> result = Lists.newArrayList();
-	@RequestMapping(value = "current/list-items", method = RequestMethod.GET)
-	public String listItems(Model model) {
-		Category c1 = new Category(1001, "数码");
-		Category c2 = new Category(1002, "交通");
-		Category c3 = new Category(1003, "其他");
-		ConsumptionDetail cd1 = new ConsumptionDetail();
-		ConsumptionDetail cd2 = new ConsumptionDetail();
-		ConsumptionDetail cd3 = new ConsumptionDetail();
-		cd1.setId(1);
-		cd1.setAmount(11.1);
-		cd1.setCategory(c1);
-		cd1.setNote("Note1");
-		cd1.setOccurDate("2013-10-23");
-		cd2.setId(2);
-		cd2.setAmount(60.4);
-		cd2.setCategory(c2);
-		cd2.setNote("Note2");
-		cd2.setOccurDate("2013-10-24");
-		cd3.setId(3);
-		cd3.setAmount(77.2);
-		cd3.setCategory(c3);
-		cd3.setNote("Note3");
-		cd3.setOccurDate("2013-10-25");
-		result.clear();
-		result.add(cd3);
-		result.add(cd2);
-		result.add(cd1);
+
+	@RequestMapping(value = "current", method = RequestMethod.GET)
+	public String current(Model model) {
+		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(null);
 		model.addAttribute("result", result);
 		return "current";
 
 	}
 	
 	
-	@RequestMapping(value = "consumption-details/{id}", method = RequestMethod.GET)
-	public void getConsumptionDetails(@PathVariable final int id, Model model) {
-		model.addAttribute("cd", result.get(id));
-		//return result.get(id);
+	@RequestMapping(value = "/consumption-details/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ConsumptionDetail getConsumptionDetailById(@PathVariable final int id) {
+		return consumptionDetailService.getConsumptionDetailById(id);
 	}
+	
+	
+	@RequestMapping(value = "current/items", method = RequestMethod.GET)
+	public String getConsumptionDetailsByCondition(@RequestParam(required = false) String keyWord, Model model) {
+		if(StringUtils.isEmpty(keyWord)) {
+			current(model);
+		}
+		Map<String, Object> condition = Maps.newHashMap();
+		condition.put("keyWord", keyWord);
+		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition);
+		model.addAttribute("result", result);
+		return "table_tmp";
+	}
+	
+
 }

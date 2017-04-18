@@ -7,15 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.google.common.collect.Lists;
+
 import com.andywooh.xiaoman.bean.Category;
+import com.andywooh.xiaoman.service.CategoryService;
+import com.google.common.collect.Lists;
 
 
 @Controller
 @RequestMapping("/sys-config")
 public class SettingsController extends AbstractController {
 	
-//	private IloginService loginService;
+	@Autowired
+	private CategoryService categoryService;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public String listItems() {
@@ -27,11 +30,7 @@ public class SettingsController extends AbstractController {
 	@RequestMapping(value = "categories", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public List<Category> getCategories() {
-		List<Category> categories = Lists.newArrayList();
-		categories.add(new Category(1001, "交通"));
-		categories.add(new Category(1002, "其他"));
-		categories.add(new Category(1003, "数码"));
-		return categories;
+		return categoryService.getCategories();
 	}
 	
 }

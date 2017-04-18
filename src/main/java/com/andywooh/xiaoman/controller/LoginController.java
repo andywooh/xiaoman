@@ -22,7 +22,7 @@ public class LoginController extends AbstractController {
 	public String login(User user) {
 		 boolean isloggin = loginService.login(user);
 		 if	(isloggin) {
-			 return "redirect:current/list-items";
+			 return "redirect:current";
 		 } else {
 			 return "errorpage";
 		 }

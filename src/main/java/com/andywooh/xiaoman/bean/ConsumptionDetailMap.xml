@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.andywooh.xiaoman.dao.ConsumptionDetailDao">
+	
+	<select id="getConsumptionDetails" resultMap="resultMap">
+		select * from consumption_detail cd
+		inner join category ca 
+		on cd.category_id = ca.category_id
+		where 1=1
+		<if test="keyWord != null">
+			AND cd.note like concat('%', #{keyWord}, '%')
+		</if>
+		order by cd.id desc
+	</select>
+	
+	<select id="getConsumptionDetailById" parameterType="int"  resultMap="resultMap">
+		select * from consumption_detail cd
+		inner join category ca 
+		on cd.category_id = ca.category_id
+		where cd.id = #{id}
+	</select>
+
+	<!-- 将查询结果的字段指定给哪些属性赋值 -->
+ 	<resultMap id="resultMap" type="com.andywooh.xiaoman.bean.ConsumptionDetail">
+		<id property="id" column="id"/>    <!-- 主键字段映射用id  id属性接收id字段的值   （联合主键需要配置多个id） -->
+		<result property="occurDate" column="occur_date"/>
+		<result property="note" column="note" />
+		<result property="amount" column="amount"/>
+		<!-- 关联属性映射 -->
+		<association property="category" javaType="com.andywooh.xiaoman.bean.Category">
+			<id property="id" column="id"/>
+			<result property="categoryName" column="category_name"/>
+			<result property="categoryId" column="category_id" />
+		</association>
+	</resultMap>
+<!--	
+	删除操作
+	<delete id="deleteAccountDetail" parameterType="int">
+		delete from detailaccount where id = #{id}
+	</delete>
+	
+	查询总记录数
+	<select id="findRows" resultType="int">
+		select count(*) from detailaccount
+	</select>
+	
+	插入消费明细
+	<insert id="saveDetails" parameterType="com.andywooh.bean.ConsumptionDetail">
+		insert into detailaccount (occurDate, note, amount, categoryId)
+		values
+		(
+			#{occurDate}, 
+			#{note}, 
+			#{amount}, 
+			#{category.categoryId}
+		)
+	</insert>
+	
+	根据id查找消费明细
+	<select id="findItemById" parameterType="int" resultMap="detailAccountMap" >
+		select * from detailaccount da 
+		inner join category ca on da.categoryId = ca.categoryId
+		where da.id = #{id}
+	</select>
+	<resultMap id="detailAccountMap" type="com.andywooh.bean.ConsumptionDetail">
+		<id property="id" column="id"></id>          主键字段映射用id  id属性接收id字段的值   （联合主键需要配置多个id）
+		<result property="occurDate" column="occurDate"></result>
+		<result property="note" column="note"></result>
+		<result property="amount" column="amount"></result>
+		<association property="category" javaType="com.andywooh.bean.Category">  category是DetailAccount和Category的关联属性
+			<id property="id" column="id"/>
+			<result property="categoryName" column="categoryName"/>
+			<result property="categoryId" column="categoryId"/>
+		</association>
+	</resultMap>
+	根据id更新消费明细
+	<update id="updateItem" parameterType="com.andywooh.bean.ConsumptionDetail">
+		update detailaccount set 
+			occurDate = #{occurDate},
+			note = #{note},
+			amount = #{amount},
+			categoryId = #{category.categoryId}
+		where id = #{id}
+	</update> -->
+	
+<!-- 一对多映射
+	<select id="findUserOrder" resultMap="userOrderMap">
+		select * FROM
+		user u 
+		left join  orders o
+		on u.id = o.userid
+	</select>	
+	
+	<resultMap id="userOrderMap" type="com.andywooh.bean.UserOrder">
+		<result property="userid" column="userid"/>
+		<collection property="orders" ofType="com.andywooh.bean.Order">
+			<result property="userid" column="userid"/>
+			<result property="orderid" column="orderid"/>
+			<result property="orderDetail" column="orderdetail"/>
+		</collection>
+	</resultMap>	 
+-->		
+</mapper>
