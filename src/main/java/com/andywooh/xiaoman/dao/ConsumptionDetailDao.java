@@ -11,5 +11,6 @@ public interface ConsumptionDetailDao
 {
 	public List<ConsumptionDetail> getConsumptionDetails(Map<String, Object> condition);
 	public ConsumptionDetail getConsumptionDetailById(int id);
+	public void addConsumptionDetails(List<ConsumptionDetail> cds);
 	
 }

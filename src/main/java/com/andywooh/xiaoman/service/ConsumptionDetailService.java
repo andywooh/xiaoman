@@ -23,4 +23,8 @@ public class ConsumptionDetailService {
 	public ConsumptionDetail getConsumptionDetailById(int id){
 		return consumptionDetailDao.getConsumptionDetailById(id);
 	}
+	
+	public void addConsumptionDetails(List<ConsumptionDetail> cds) {
+		consumptionDetailDao.addConsumptionDetails(cds);
+	}
 }

@@ -197,5 +197,34 @@
 			}
 		});	 */
 	}
+	
+	// 添加记录
+	function addConsumptionDetail() {
+		var data = buidJSON();
+		$.ajax({
+			type: "post",
+			url: "/consumption-details",
+			data: data,
+			success: function (result) {
 
+			},
+			error: function (result){
+				alert(result);
+			}
+		});
+		// 添加后刷新页面
+ 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+		});
+	}
+
+	// 构造JSON数据
+	function buidJSON(){
+		var ocurrDate = $("#add_date").val();
+		var docs = $("#add_table").children(":not(:last-child)"); // 去掉添加按钮的那一行
+		for (var i=0; i<docs.length; i++) {
+			var data = $("#note") + $("#amount") + $("#catetory.catetoryId") + $("#note");
+			alert(data);
+		}
+		
+	}
 </script>

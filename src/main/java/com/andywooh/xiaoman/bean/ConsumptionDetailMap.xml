@@ -34,6 +34,15 @@
 			<result property="categoryId" column="category_id" />
 		</association>
 	</resultMap>
+
+	<insert id="addConsumptionDetails" parameterType="java.util.List">
+		insert into consumption_detail (occur_date, note, amount, category_id)
+		values
+	    <foreach collection="list" item="item" index="index" separator=",">
+	        (#{item.occurDate}, #{item.note}, #{item.amount}, #{item.category.categoryId})
+	    </foreach> 
+	</insert>
+
 <!--	
 	删除操作
 	<delete id="deleteAccountDetail" parameterType="int">

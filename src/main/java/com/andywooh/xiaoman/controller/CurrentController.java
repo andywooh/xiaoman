@@ -1,6 +1,5 @@
 package com.andywooh.xiaoman.controller;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -9,13 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
-import com.andywooh.xiaoman.bean.Page;
 import com.andywooh.xiaoman.service.CategoryService;
 import com.andywooh.xiaoman.service.ConsumptionDetailService;
 import com.google.common.collect.Lists;
@@ -59,6 +58,9 @@ public class CurrentController extends AbstractController {
 		model.addAttribute("result", result);
 		return "table_tmp";
 	}
-	
 
+	@RequestMapping(value = "/consumption-details", method = RequestMethod.POST)
+	public void addConsumptionDetails(@RequestBody List<ConsumptionDetail> cds) {
+		consumptionDetailService.addConsumptionDetails(cds);
+	}
 }
