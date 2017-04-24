@@ -39,11 +39,11 @@
 				</thead>
 				<tbody id="add_table">
 					<c:forEach var="i" begin="1" end="5">
-						<tr>
-							<td><input name="note" type="text" class="form-control" placeholder="明细" aria-describedby="sizing-addon2"></td>
-							<td><input name="amount" type="text" class="form-control" placeholder="金额" aria-describedby="sizing-addon2"></td>
+						<tr class="mark">
+							<td><input name="note" type="text" class="form-control mark1" placeholder="明细" aria-describedby="sizing-addon2"></td>
+							<td><input name="amount" type="text" class="form-control mark1" placeholder="金额" aria-describedby="sizing-addon2"></td>
 							<td>
-								<select name="catetory.catetoryId" class="form-control"></select>
+								<select name="catetory.catetoryId" class="form-control mark1"></select>
 							</td>
 							<td><input type="button" onclick="deletePanel(this)" value="-" /></td>
 						</tr>

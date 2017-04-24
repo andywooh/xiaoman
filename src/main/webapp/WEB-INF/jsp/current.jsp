@@ -208,7 +208,7 @@
 			success: function (result) {
 
 			},
-			error: function (result){
+			error: function (result) {
 				alert(result);
 			}
 		});
@@ -221,10 +221,14 @@
 	function buidJSON(){
 		var ocurrDate = $("#add_date").val();
 		var docs = $("#add_table").children(":not(:last-child)"); // 去掉添加按钮的那一行
-		for (var i=0; i<docs.length; i++) {
-			var data = $("#note") + $("#amount") + $("#catetory.catetoryId") + $("#note");
-			alert(data);
-		}
+		var data;
+		
+		$(".mark").each(function() { // class选择器
+			var note = $(this).find("input[name=note]").val();
+			var amount = $(this).find("input[name=amount]").val();
+			var catetoryId = $(this).find("select").val();
+			alert(note + ' ' + amount + ' ' + catetoryId)
+		});
 		
 	}
 </script>
