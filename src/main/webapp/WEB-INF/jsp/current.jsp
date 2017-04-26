@@ -80,10 +80,10 @@
 	
 	// 记一笔 添加一行
 	function addPanel(){
-		var html = "<tr>"+
-		"<td><input type=\"text\" class=\"form-control\" placeholder=\"明细\" aria-describedby=\"sizing-addon2\"></td>"+
-		"<td><input type=\"text\" class=\"form-control\" placeholder=\"金额\" aria-describedby=\"sizing-addon2\"></td>"+
-		"<td><select type=\"text\" class=\"form-control\" aria-describedby=\"sizing-addon2\"></td>"+
+		var html = "<tr class=\"mark\">" +
+		"<td><input name=\"note\" type=\"text\" class=\"form-control\" placeholder=\"明细\" aria-describedby=\"sizing-addon2\"></td>"+
+		"<td><input name=\"amount\" type=\"text\" class=\"form-control\" placeholder=\"金额\" aria-describedby=\"sizing-addon2\"></td>"+
+		"<td><select name=\"catetory.catetoryId\" type=\"text\" class=\"form-control\" aria-describedby=\"sizing-addon2\"></td>"+
 		"<td><input type=\"button\"  onclick=\"deletePanel(this)\"  value=\"-\"/></td>"+
 		"</tr>";
 		$("#addPanel").before(html);
@@ -96,7 +96,7 @@
 					//var data1 = JSON.stringify(result);  // Object --> String 
 					$("table select:last").empty().append("<option>"+"-请选择-"+"</option>"); //empty()防止多次点击【记一笔】后，下拉框选项值重复
 					for (var one in result) {
-						var id = result[one].id;
+						var id = result[one].categoryId;
 						var categoryName = result[one].categoryName;
 						$("table select:last").append("<option value="+id+">"+categoryName+"</option>");
 					}
@@ -201,8 +201,11 @@
 	// 添加记录
 	function addConsumptionDetail() {
 		var data = buidJSON();
+		alert(JSON.stringify(data));
 		$.ajax({
 			type: "post",
+			//dataType: "json",预期服务器的返回类型
+			contentType: "application/json; charset=utf-8", //
 			url: "/consumption-details",
 			data: data,
 			success: function (result) {
@@ -219,16 +222,21 @@
 
 	// 构造JSON数据
 	function buidJSON(){
-		var ocurrDate = $("#add_date").val();
+		var _ocurrDate = $("#add_date").val();
 		var docs = $("#add_table").children(":not(:last-child)"); // 去掉添加按钮的那一行
-		var data;
+		var datas = [];
 		
 		$(".mark").each(function() { // class选择器
-			var note = $(this).find("input[name=note]").val();
-			var amount = $(this).find("input[name=amount]").val();
-			var catetoryId = $(this).find("select").val();
-			alert(note + ' ' + amount + ' ' + catetoryId)
+			var _note = $(this).find("input[name=note]").val();
+			var _amount = $(this).find("input[name=amount]").val();
+			var _catetoryId = $(this).find("select").val();
+			var data = {ocurrDate:_ocurrDate, note:_note, amount:_amount, catetoryId:_catetoryId};
+			//alert(data);
+			if ($.trim(_ocurrDate) != "" && $.trim(_note) != "" && $.trim(_amount) != "" && $.trim(_catetoryId) != "-请选择-") {
+				datas.push(data);
+			}
 		});
-		
+		return datas;		
+		//alert(JSON.stringify(datas));
 	}
 </script>
