@@ -1,9 +1,11 @@
 package com.andywooh.xiaoman.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -61,6 +63,8 @@ public class CurrentController extends AbstractController {
 
 	@RequestMapping(value = "/consumption-details", method = RequestMethod.POST)
 	public void addConsumptionDetails(@RequestBody List<ConsumptionDetail> cds) {
-		consumptionDetailService.addConsumptionDetails(cds);
+		if (!cds.isEmpty()) {
+			consumptionDetailService.addConsumptionDetails(cds);
+		}
 	}
 }

@@ -11,7 +11,7 @@ public class ConsumptionDetail
 	private String occurDate;
 	private String note;
 	private Double amount;
-	private Category category = new Category();
+	private Category category;
 	
 	public Integer getId() 
 	{
@@ -65,15 +65,4 @@ public class ConsumptionDetail
 				+ ", note=" + note + ", amount=" + amount + ", category="
 				+ category + "]";
 	}
-	
-//	public ConsumptionDetail() {
-//		super();
-//	}	
-//	
-//	public ConsumptionDetail(Category category) {
-//		super();
-//		this.category = category;
-//	}
-	
-	
 }

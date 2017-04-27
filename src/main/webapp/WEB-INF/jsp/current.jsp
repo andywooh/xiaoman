@@ -209,15 +209,16 @@
 			url: "/consumption-details",
 			data: data_str,
 			success: function (result) {
+				// 添加后刷新页面
+		 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+				});
 
 			},
 			error: function (result) {
-				alert(result);
+				//alert(result);
 			}
 		});
-		// 添加后刷新页面
- 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
-		});
+		//$('#add_modal').modal('hide');
 	}
 
 	// 构造JSON数据
@@ -230,12 +231,12 @@
 			var _note = $(this).find("input[name=note]").val();
 			var _amount = $(this).find("input[name=amount]").val();
 			var _categoryId = $(this).find("select").val();
-			var data = {occurDate:_occurDate, note:_note, amount:_amount, categoryId:_categoryId};
 			if ($.trim(_occurDate) != "" && $.trim(_note) != "" && $.trim(_amount) != "" && $.trim(_categoryId) != "-请选择-") {
+				var data = {occurDate:_occurDate, note:_note, amount:_amount, category:{categoryId:_categoryId}};
 				datas.push(data);
 			}
 		});
+		//console.log((JSON.stringify(datas)));
 		return datas;		
-		//alert(JSON.stringify(datas));
 	}
 </script>
