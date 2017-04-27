@@ -201,13 +201,13 @@
 	// 添加记录
 	function addConsumptionDetail() {
 		var data = buidJSON();
-		//alert(JSON.stringify(data));
+		var data_str = JSON.stringify(data);
 		$.ajax({
 			type: "post",
 			//dataType: "json",预期服务器的返回类型
 			contentType: "application/json; charset=utf-8", //
 			url: "/consumption-details",
-			data: data,
+			data: data_str,
 			success: function (result) {
 
 			},
@@ -222,16 +222,16 @@
 
 	// 构造JSON数据
 	function buidJSON(){
-		var _ocurrDate = $("#add_date").val();
+		var _occurDate = $("#add_date").val();
 		var docs = $("#add_table").children(":not(:last-child)"); // 去掉添加按钮的那一行
 		var datas = [];
 		
 		$(".mark").each(function() { // class选择器
 			var _note = $(this).find("input[name=note]").val();
 			var _amount = $(this).find("input[name=amount]").val();
-			var _catetoryId = $(this).find("select").val();
-			var data = {ocurrDate:_ocurrDate, note:_note, amount:_amount, catetoryId:_catetoryId};
-			if ($.trim(_ocurrDate) != "" && $.trim(_note) != "" && $.trim(_amount) != "" && $.trim(_catetoryId) != "-请选择-") {
+			var _categoryId = $(this).find("select").val();
+			var data = {occurDate:_occurDate, note:_note, amount:_amount, categoryId:_categoryId};
+			if ($.trim(_occurDate) != "" && $.trim(_note) != "" && $.trim(_amount) != "" && $.trim(_categoryId) != "-请选择-") {
 				datas.push(data);
 			}
 		});
