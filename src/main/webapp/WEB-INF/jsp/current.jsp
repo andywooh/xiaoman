@@ -231,7 +231,6 @@
 			var _amount = $(this).find("input[name=amount]").val();
 			var _catetoryId = $(this).find("select").val();
 			var data = {ocurrDate:_ocurrDate, note:_note, amount:_amount, catetoryId:_catetoryId};
-			//alert(data);
 			if ($.trim(_ocurrDate) != "" && $.trim(_note) != "" && $.trim(_amount) != "" && $.trim(_catetoryId) != "-请选择-") {
 				datas.push(data);
 			}
