@@ -201,7 +201,7 @@
 	// 添加记录
 	function addConsumptionDetail() {
 		var data = buidJSON();
-		alert(JSON.stringify(data));
+		//alert(JSON.stringify(data));
 		$.ajax({
 			type: "post",
 			//dataType: "json",预期服务器的返回类型
