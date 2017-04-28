@@ -43,12 +43,20 @@
 	    </foreach> 
 	</insert>
 
-<!--	
-	删除操作
-	<delete id="deleteAccountDetail" parameterType="int">
-		delete from detailaccount where id = #{id}
+	<delete id="delConsumptionDetailById" parameterType="int">
+		delete from consumption_detail where id = #{id}
 	</delete>
 	
+	<update id="updateConsumptionDetailById" parameterType="com.andywooh.xiaoman.bean.ConsumptionDetail">
+		update consumption_detail set 
+			occur_date = #{occurDate},
+			note = #{note},
+			amount = #{amount},
+			category_id = #{category.categoryId}
+		where id = #{id}
+	</update>
+
+<!--	
 	查询总记录数
 	<select id="findRows" resultType="int">
 		select count(*) from detailaccount
@@ -84,16 +92,9 @@
 		</association>
 	</resultMap>
 	根据id更新消费明细
-	<update id="updateItem" parameterType="com.andywooh.bean.ConsumptionDetail">
-		update detailaccount set 
-			occurDate = #{occurDate},
-			note = #{note},
-			amount = #{amount},
-			categoryId = #{category.categoryId}
-		where id = #{id}
-	</update> -->
+
 	
-<!-- 一对多映射
+	一对多映射
 	<select id="findUserOrder" resultMap="userOrderMap">
 		select * FROM
 		user u 

@@ -18,7 +18,7 @@
 					<a href="#" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id}, ${c.category.categoryId})">
 						<span class="glyphicon glyphicon-edit"></span> 
       					</a>   						
-					<a href="#" class="btn btn-danger btn-sm">
+					<a href="#" class="btn btn-danger btn-sm"  onclick="delItem(${c.id})">
 						<span class="glyphicon glyphicon-trash"></span>
       					</a>
 				</td>

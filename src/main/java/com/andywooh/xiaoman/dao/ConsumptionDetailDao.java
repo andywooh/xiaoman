@@ -12,5 +12,6 @@ public interface ConsumptionDetailDao
 	public List<ConsumptionDetail> getConsumptionDetails(Map<String, Object> condition);
 	public ConsumptionDetail getConsumptionDetailById(int id);
 	public void addConsumptionDetails(List<ConsumptionDetail> cds);
-	
+	public void delConsumptionDetailById(int id);
+	public void updateConsumptionDetailById(ConsumptionDetail cd);
 }

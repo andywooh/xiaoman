@@ -62,9 +62,22 @@ public class CurrentController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/consumption-details", method = RequestMethod.POST)
+	@ResponseBody // 添加记录完成后，总是回去找consumption-details.jsp这个默认的视图，未解决此问题添加@ResponseBody
 	public void addConsumptionDetails(@RequestBody List<ConsumptionDetail> cds) {
 		if (!cds.isEmpty()) {
 			consumptionDetailService.addConsumptionDetails(cds);
 		}
+	}
+	
+	@RequestMapping(value = "/consumption-details/{id}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public void delConsumptionDetailById(@PathVariable final int id) {
+		consumptionDetailService.delConsumptionDetailById(id);
+	}
+	
+	@RequestMapping(value = "/consumption-details/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public void updateConsumptionDetailById(@PathVariable final int id, @RequestBody ConsumptionDetail cd) {
+		consumptionDetailService.updateConsumptionDetailById(cd);
 	}
 }

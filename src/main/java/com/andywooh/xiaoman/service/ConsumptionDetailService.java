@@ -27,4 +27,12 @@ public class ConsumptionDetailService {
 	public void addConsumptionDetails(List<ConsumptionDetail> cds) {
 		consumptionDetailDao.addConsumptionDetails(cds);
 	}
+	
+	public void delConsumptionDetailById(int id){
+		consumptionDetailDao.delConsumptionDetailById(id);
+	}
+	
+	public void updateConsumptionDetailById(ConsumptionDetail cd){
+		consumptionDetailDao.updateConsumptionDetailById(cd);
+	}	
 }

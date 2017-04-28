@@ -54,10 +54,10 @@
 									<td>${c.amount}</td>
 									<td>${c.category.categoryName}</td>
 									<td>
-										<a href="#" class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id}, ${c.category.categoryId})">
+										<a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id}, ${c.category.categoryId})">
 											<span class="glyphicon glyphicon-edit"></span> 
 			        					</a>   						
-										<a href="#" class="btn btn-danger btn-sm">
+										<a class="btn btn-danger btn-sm" onclick="delItem(${c.id})">
 											<span class="glyphicon glyphicon-trash"></span>
 			        					</a>
 									</td>
@@ -143,6 +143,7 @@
 			//dataType: "json",
 			contentType: "application/json; charset=utf-8",
 			success: function (result) {
+				$("#edit_id").val(id);
 				$("#edit_occurDate").val(result.occurDate);
 				$("#edit_note").val(result.note);
 				$("#edit_amount").val(result.amount);
@@ -164,7 +165,7 @@
 					var categoryId = result[one].categoryId;
 					var categoryName = result[one].categoryName;
 					if (categoryIdselected == categoryId) {
-						$("#edit_catetoryName").append("<option  selected=\"selected\"  value="+categoryId+">"+categoryName+"</option>");
+						$("#edit_catetoryName").append("<option selected=\"selected\"  value="+categoryId+">"+categoryName+"</option>");
 					} else {
 						$("#edit_catetoryName").append("<option value="+categoryId+">"+categoryName+"</option>");
 					}
@@ -174,6 +175,34 @@
 				alert("Failed to get categories.");
 			}
 		});
+	}
+	
+	// 保存修改
+	function saveEdited() {
+		var data;
+		var _id = $("#edit_id").val();
+		var _occurDate = $("#edit_occurDate").val();
+		var _note = $("#edit_note").val();
+		var _amount = $("#edit_amount").val();
+		var _categoryId = $("#edit_modal select").val();
+		if ($.trim(_occurDate) != "" && $.trim(_note) != "" && $.trim(_amount) != "" && $.trim(_categoryId) != "") {
+			data = {id:_id, occurDate:_occurDate, note:_note, amount:_amount, category:{categoryId:_categoryId}};
+		}
+		var data_str = JSON.stringify(data);		
+		$.ajax({
+			type: "PUT",
+			url: "/consumption-details/" + _id,
+			data: data_str,
+			contentType: "application/json; charset=utf-8",
+			success: function () {
+				// 刷新页面
+		 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+				});
+	  		},
+			error: function (result) {
+				alert("Failed to update item.");
+			}
+		});		
 	}
 
 	// 根据keyword查询item
@@ -209,13 +238,13 @@
 			url: "/consumption-details",
 			data: data_str,
 			success: function (result) {
-				// 添加后刷新页面
+				// 刷新页面
 		 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
 				});
 
 			},
 			error: function (result) {
-				//alert(result);
+				alert("Failed to add items.");
 			}
 		});
 		//$('#add_modal').modal('hide');
@@ -238,5 +267,23 @@
 		});
 		//console.log((JSON.stringify(datas)));
 		return datas;		
+	}
+	
+	// 删除
+	function delItem(id) {
+		$.ajax({
+			type: "delete",
+			url: "/consumption-details/" + id,
+			//dataType: "json",
+			//contentType: "application/json; charset=utf-8",
+			success: function (result) {
+				// 添加后刷新页面
+		 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+				});
+	  		},
+			error: function (result){
+				alert("Failed to delete item.");
+			}
+		});		
 	}
 </script>

@@ -10,6 +10,10 @@
 					<h4 class="modal-title" id="myModalLabel1"></h4>
 				</div>
 
+				<div class="hide" >
+					<span class="input-group-addon">ID</span>
+					<input id="edit_id" type="text" class="form-control" name="id">
+				</div>
 				<div class="input-group" >
 					<span class="input-group-addon">日期</span>
 					<input id="edit_occurDate" type="text" class="form-control" name="occurDate">
@@ -28,13 +32,12 @@
 				<div class="input-group">
 					<span class="input-group-addon">类别</span>
 					<select id="edit_catetoryName"  class="form-control" name="catetoryId">
-						<option id="edit_catetoryName_selected"></option>
 					</select>
 				</div>
 
 			   <div class="modal-footer">
 				    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				    <button type="submit" class="btn btn-primary">保存</button>
+				    <button type="submit"  onclick="saveEdited()" data-dismiss="modal" class="btn  btn-primary">保存</button>
 			   </div>
 			</div>
 		</div>
