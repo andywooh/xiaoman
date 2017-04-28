@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `xiaoman` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `xiaoman`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: xiaoman
@@ -26,9 +24,10 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `category` (
   `id` int(11) NOT NULL,
-  `category_id` int(4) DEFAULT NULL,
+  `category_id` int(4) NOT NULL,
   `category_name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`,`category_id`),
+  UNIQUE KEY `category_id_UNIQUE` (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -53,11 +52,13 @@ CREATE TABLE `consumption_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `occur_date` varchar(45) DEFAULT NULL,
   `note` varchar(45) DEFAULT NULL,
-  `amount` decimal(10,0) DEFAULT NULL,
+  `amount` decimal(10,1) DEFAULT NULL,
   `category_id` int(4) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 KEY_BLOCK_SIZE=2;
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `FK_catgory_id_idx` (`category_id`),
+  CONSTRAINT `test` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 KEY_BLOCK_SIZE=2;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +67,7 @@ CREATE TABLE `consumption_detail` (
 
 LOCK TABLES `consumption_detail` WRITE;
 /*!40000 ALTER TABLE `consumption_detail` DISABLE KEYS */;
-INSERT INTO `consumption_detail` VALUES (1,'2013-12-11','电脑',4000,1005),(2,'2015-05-23','晚饭',102,1001),(3,'2016-03-18','杂项',78,1004),(4,'2017-02-02','外套外套外套外套外套外套',588,1003),(5,'2017-09-24','手机IHONE 6s土豪金',1999,1005),(6,'2017-04-18','添加测试',22,1002);
+INSERT INTO `consumption_detail` VALUES (1,'2013-12-11','电脑',4000.0,1005),(2,'2015-05-23','晚饭',102.0,1001),(3,'2016-03-18','杂项',78.0,1004),(5,'2017-09-24','手机IHONE 6s土豪金',1999.0,1005),(6,'2017-04-18','添加测试',22.0,1002),(27,'2017-04-28','测试2',23.0,1002),(28,'2017-04-78','中文明细and En111asd',9.9,1005),(34,'2017-04-28','中文',88.8,1004),(37,'2222','过的',43.0,1001);
 /*!40000 ALTER TABLE `consumption_detail` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -87,4 +88,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-21 10:09:24
+-- Dump completed on 2017-04-28 18:23:38
