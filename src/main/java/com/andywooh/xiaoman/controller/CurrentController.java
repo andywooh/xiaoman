@@ -1,11 +1,11 @@
 package com.andywooh.xiaoman.controller;
 
-import java.util.Collections;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.CollectionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
 import com.andywooh.xiaoman.service.CategoryService;
 import com.andywooh.xiaoman.service.ConsumptionDetailService;
+import com.andywooh.xiaoman.util.MonthUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
@@ -35,7 +36,10 @@ public class CurrentController extends AbstractController {
 
 	@RequestMapping(value = "current", method = RequestMethod.GET)
 	public String current(Model model) {
-		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(null);
+		Map<String, Object> condition = Maps.newHashMap();
+		condition.put("currentMonth", MonthUtil.getCurrentMonth());
+
+		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition);
 		model.addAttribute("result", result);
 		return "current";
 
@@ -56,6 +60,8 @@ public class CurrentController extends AbstractController {
 		}
 		Map<String, Object> condition = Maps.newHashMap();
 		condition.put("keyWord", keyWord);
+		condition.put("currentMonth", MonthUtil.getCurrentMonth());
+
 		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition);
 		model.addAttribute("result", result);
 		return "table_tmp";

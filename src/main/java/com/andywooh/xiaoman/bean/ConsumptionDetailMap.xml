@@ -11,6 +11,9 @@
 		<if test="keyWord != null">
 			AND cd.note like concat('%', #{keyWord}, '%')
 		</if>
+		<if test="currentMonth != null">
+			AND substr(cd.occur_date, 1, 7) = #{currentMonth}
+		</if>		
 		order by cd.id desc
 	</select>
 	
