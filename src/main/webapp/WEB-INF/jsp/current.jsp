@@ -42,13 +42,13 @@
 					<table id="data_table" class="table table-striped table-hover table-condensed">
 						<thead>
 							<tr>
-								<th></th><th>日期</th><th>明细</th><th>金额</th><th>类别</th><th>操作</th>
+								<th>日期</th><th>明细</th><th>金额</th><th>类别</th><th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
 	                    	<c:forEach items="${result}" var="c">
 								<tr class="">
-									<td >${c.id}</td>
+									<%-- <td>${c.id}</td> --%>
 									<td>${c.occurDate}</td>
 									<td>${c.note}</td>
 									<td>${c.amount}</td>
@@ -57,7 +57,7 @@
 										<a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id}, ${c.category.categoryId})">
 											<span class="glyphicon glyphicon-edit"></span> 
 			        					</a>   						
-										<a class="btn btn-danger btn-sm" onclick="delItem(${c.id})">
+										<a class="btn btn-danger btn-sm" onclick="confirmDel(${c.id})">
 											<span class="glyphicon glyphicon-trash"></span>
 			        					</a>
 									</td>
@@ -73,6 +73,10 @@
 
 <jsp:include page="add_modal.jsp"></jsp:include>
 <jsp:include page="edit_modal.jsp"></jsp:include>
+<jsp:include page="confirm_del.jsp"></jsp:include>
+
+
+
 
 </html>
 
@@ -247,6 +251,7 @@
 				alert("Failed to add items.");
 			}
 		});
+		clearAddModal();
 		//$('#add_modal').modal('hide');
 	}
 
@@ -268,9 +273,23 @@
 		//console.log((JSON.stringify(datas)));
 		return datas;		
 	}
-	
+
+	// 清空模态框中的数据
+	function clearAddModal() {
+		$("#add_date").val('');
+	    $("#add_table").find("input[name=note]").val('');
+	    $("#add_table").find("input[name=amount]").val('');
+	}
+
+	// 确认删除？
+	function confirmDel(id) {
+		$("#itemId").val(id);
+		$('#confirmDel').modal();  	
+	}
 	// 删除
-	function delItem(id) {
+	function delItem() {
+		var id = $('#itemId').val();  		
+		
 		$.ajax({
 			type: "delete",
 			url: "/consumption-details/" + id,

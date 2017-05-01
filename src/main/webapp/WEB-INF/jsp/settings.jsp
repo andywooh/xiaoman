@@ -17,14 +17,13 @@
 		<br/>
 		<div class="col-md-12 column">
 			<jsp:include page="nav.jsp"></jsp:include>
-			<div class="">
-				<button id="tianjia" type="button" class="btn btn-warning glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_modal">添加</button>
+			<div class="text-right">
+				<button id="tianjia" type="button" class="btn right btn-warning glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_modal">添加</button>
 			</div>
 			<br/>
 				<table class="table table-striped table-hover table-condensed">
 						<thead>
 							<tr>
-								<th>ID</th>
 								<th>类别</th>
 								<th>操作</th>
 							</tr>
@@ -32,7 +31,6 @@
 						<tbody >
 	                    	<c:forEach items="${categories}" var="c">
 								<tr class="">
-									<td >${c.id}</td>
 									<td>${c.categoryName}</td>
 									<td>
 										<a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id})">
@@ -45,7 +43,7 @@
 								</tr>
 							</c:forEach>
 						</tbody>
-					</table>
+				</table>
 		</div>
 	</div>
 </div>

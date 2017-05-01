@@ -6,7 +6,7 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title" id="myModalLabel"></h4>
+	        <h4 class="modal-title" id="myModalLabel">记一笔</h4>
 	      </div>
 		<div>
 			<br/>
@@ -23,7 +23,7 @@
 	        <script type="text/javascript">
 	            $(function () {
 	                $('#datetimepicker1').datetimepicker({
-	                   locale:"zh-cn",
+					   locale:"zh-cn",
 	                   format: 'YYYY-MM-DD'
 	                });
 	            });
