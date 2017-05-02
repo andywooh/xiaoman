@@ -1,5 +1,9 @@
 package com.andywooh.xiaoman.bean;
 
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 /**
  * 
  * @author wuuuxjia

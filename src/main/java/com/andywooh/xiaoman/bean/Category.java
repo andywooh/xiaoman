@@ -2,18 +2,18 @@ package com.andywooh.xiaoman.bean;
 
 public class Category {
 	private int id;
-	private int categoryId;
+	private Integer categoryId;
 	private String categoryName;
 
 	public int getId() {
 		return id;
 	}
 
-	public int getCategoryId() {
+	public Integer getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(int categoryId) {
+	public void setCategoryId(Integer categoryId) {
 		this.categoryId = categoryId;
 	}
 	

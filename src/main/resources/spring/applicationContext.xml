@@ -64,4 +64,5 @@
 		使用sqlSessionfactorybean创建接口的代理对象 -->
 	</bean>
 
+	<!-- <bean id="consumptionDetailValidator" class="com.andywooh.xiaoman.validator.ConsumptionDetailValidator"></bean> -->
 </beans>
