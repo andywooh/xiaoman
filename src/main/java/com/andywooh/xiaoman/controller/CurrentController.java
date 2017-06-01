@@ -1,13 +1,14 @@
 package com.andywooh.xiaoman.controller;
 
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -27,7 +28,6 @@ import com.andywooh.xiaoman.service.CategoryService;
 import com.andywooh.xiaoman.service.ConsumptionDetailService;
 import com.andywooh.xiaoman.util.MonthUtil;
 import com.andywooh.xiaoman.validator.ConsumptionDetailValidator;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 
@@ -81,13 +81,22 @@ public class CurrentController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/consumption-details", method = RequestMethod.POST)
-	@ResponseBody // 添加记录完成后，总是去找consumption-details.jsp这个默认的视图，未解决此问题添加@ResponseBody
-	public void addConsumptionDetails(@RequestBody List<ConsumptionDetail> cds, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			System.out.println("xx");
+	@ResponseBody // 添加记录完成后，总是去找consumption-details.jsp这个默认的视图，为解决此问题添加@ResponseBody
+	public String addConsumptionDetails(@RequestBody List<ConsumptionDetail> cds, BindingResult bindingResult, HttpServletRequest req) {
+		if (CollectionUtils.isEmpty(cds)) {
+			return null;
 		}
-		if (!cds.isEmpty()) {
+
+		for (ConsumptionDetail cd : cds) {
+			validator.validate(cd, bindingResult);
+		}
+		if (bindingResult.hasErrors()) {
+			String errorInfo = "{\"info\"".concat(":").concat("\"Invalid Input.\"}");
+
+			return errorInfo;
+		} else {
 			consumptionDetailService.addConsumptionDetails(cds);
+			return null;
 		}
 	}
 	
@@ -102,6 +111,7 @@ public class CurrentController extends AbstractController {
 	public void updateConsumptionDetailById(@PathVariable final int id, @RequestBody  @Validated  ConsumptionDetail cd, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			System.out.println("xx");
+			return;
 		}
 		consumptionDetailService.updateConsumptionDetailById(cd);
 	}

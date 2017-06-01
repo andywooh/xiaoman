@@ -11,4 +11,8 @@
 		<result property="categoryId" column="category_id"/>
 		<result property="categoryName" column="category_name" />	
 	</resultMap>
+	
+	<select id="getCategoryIds"  resultType="int">
+		select category_id from category order by category_id
+	</select>	
 </mapper>

@@ -5,7 +5,7 @@
 <head>
 <title>当月</title>
 <link rel="shortcut icon" href="/static/icon/robot.jpg"/>
-<script src="/webjars/jquery/2.1.1/jquery.min.js"></script> 
+<script src="/webjars/jquery/2.1.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
 <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
@@ -235,16 +235,21 @@
 	function addConsumptionDetail() {
 		var data = buidJSON();
 		var data_str = JSON.stringify(data);
+		console.log(data_str);
 		$.ajax({
 			type: "post",
-			//dataType: "json",预期服务器的返回类型
+			//dataType: "text", //预期服务器的返回类型
 			contentType: "application/json; charset=utf-8", //
 			url: "/consumption-details",
 			data: data_str,
 			success: function (result) {
-				// 刷新页面
-		 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
-				});
+				if (result.info == "Invalid Input.") {
+					alert("Invalid Input.")
+				} else {
+					// 刷新页面
+			 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+					});
+				}
 
 			},
 			error: function (result) {
@@ -305,4 +310,6 @@
 			}
 		});		
 	}
+	
+
 </script>

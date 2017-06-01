@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 添加模态框 -->
-<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- <div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> -->
+<form class="modal fade" id="add_modal">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -38,16 +39,16 @@
 					</tr>
 				</thead>
 				<tbody id="add_table">
-					<c:forEach var="i" begin="1" end="5">
+				<c:forEach var="i" begin="1" end="5">
 						<tr class="mark">
-							<td><input name="note" type="text" class="form-control" placeholder="明细" aria-describedby="sizing-addon2"></td>
+							<td><input id="note" name="note" type="text" class="form-control" placeholder="明细" aria-describedby="sizing-addon2"></td>
 							<td><input name="amount" type="text" class="form-control" placeholder="金额" aria-describedby="sizing-addon2"></td>
 							<td>
 								<select name="catetory.catetoryId" class="form-control"></select>
 							</td>
 							<td><input type="button" onclick="deletePanel(this)" value="-" /></td>
 						</tr>
-					</c:forEach>
+				</c:forEach>
 					<tr id="addPanel">
 						<td colspan="5" align="right">
 							<div>
@@ -66,4 +67,5 @@
 	      </div>
 	    </div>
 	  </div>
-</div>
+</form>
+<!-- </div> -->

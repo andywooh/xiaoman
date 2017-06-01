@@ -1,43 +1,73 @@
 package com.andywooh.xiaoman.validator;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.validator.util.ValidatorUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
+import com.andywooh.xiaoman.service.CategoryService;
 import com.andywooh.xiaoman.util.NumberUtil;
 
 @Component
 public class ConsumptionDetailValidator implements Validator {
 	
-	private static final int NOTE_MAX_LENTH = 20;
-	private static final int NOTE_MIN_LENTH = 4;
-	private static final int CATEGORY_ID_LENGTH = 4;
+	@Autowired
+	private CategoryService categoryService;
 	
 	
-	@Override
 	public boolean supports(Class<?> clazz) {
+		// TODO Auto-generated method stub
 		return ConsumptionDetail.class.equals(clazz);
 	}
 
-	@Override
 	public void validate(Object target, Errors errors) {
+		// TODO Auto-generated method stub
+		List<Integer> categoryIds = categoryService.getCategoryIds();
 		ConsumptionDetail cd = (ConsumptionDetail) target;
 		
 		String occurDate = cd.getOccurDate();
 		String note = cd.getNote();
 		String amount = Double.toString(cd.getAmount());
-		String categoryId = Integer.toString(cd.getCategory().getCategoryId());
-		
-		if (!StringUtils.isEmpty(occurDate) && !StringUtils.isEmpty(note) && !StringUtils.isEmpty(amount) 
-				&& note.length() <= NOTE_MIN_LENTH && note.length() >= NOTE_MAX_LENTH
-				&& NumberUtil.isPositiveNumber(amount)
-				&& categoryId.length() == CATEGORY_ID_LENGTH) {
-			errors.rejectValue("note", "Data invalid.");
+		Integer categoryId = cd.getCategory().getCategoryId();
+
+		if (!isDate(occurDate) 
+				|| StringUtils.isEmpty(note) 
+				|| StringUtils.isEmpty(amount) 
+				|| !NumberUtil.isPositiveNumber(amount)
+				|| !categoryIds.contains(categoryId)) {
+			errors.reject("Data invalid.");
 		}
 	}
+	
+	private boolean isDate(String occurDate) {
+		if (StringUtils.isEmpty(occurDate)) {
+			return false;
+		}
+		Date date = null;
+		try {
+		    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		    date = sdf.parse(occurDate);
+		    if (!occurDate.equals(sdf.format(date))) {
+		        date = null;
+		    }
+		} catch (ParseException ex) {
+			
+		}
+		if (date == null) {
+		    return false; // 不是日期
+		} else {
+		    return true;
+		}
+	}
+
 
 }

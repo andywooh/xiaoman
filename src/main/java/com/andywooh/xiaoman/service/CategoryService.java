@@ -9,10 +9,16 @@ import com.andywooh.xiaoman.dao.CategoryDao;
 @Service
 public class CategoryService {
 	@Autowired
-	private CategoryDao CategoryDao;
+	private CategoryDao categoryDao;
 	
 	public List<Category> getCategories() {
 		
-		return CategoryDao.getCategories();
+		return categoryDao.getCategories();
 	}
+	
+	public List<Integer> getCategoryIds() {
+		
+		return categoryDao.getCategoryIds();
+	}	
+	
 }
