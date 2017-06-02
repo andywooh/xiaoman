@@ -198,10 +198,14 @@
 			url: "/consumption-details/" + _id,
 			data: data_str,
 			contentType: "application/json; charset=utf-8",
-			success: function () {
-				// 刷新页面
-		 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
-				});
+			success: function (result) {
+				if (result == "INVALID") {
+					alert("Invalid Input.")
+				} else {
+					// 刷新页面
+			 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+					});
+				}
 	  		},
 			error: function (result) {
 				alert("Failed to update item.");

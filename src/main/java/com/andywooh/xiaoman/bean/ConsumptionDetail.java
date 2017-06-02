@@ -1,8 +1,5 @@
 package com.andywooh.xiaoman.bean;
 
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * 
@@ -65,7 +62,7 @@ public class ConsumptionDetail
 	
 	@Override
 	public String toString() {
-		return "DetailAccount [id=" + id + ", occurDate=" + occurDate
+		return "ConsumptionDetail [id=" + id + ", occurDate=" + occurDate
 				+ ", note=" + note + ", amount=" + amount + ", category="
 				+ category + "]";
 	}

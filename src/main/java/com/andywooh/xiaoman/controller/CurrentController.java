@@ -4,16 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,10 +40,12 @@ public class CurrentController extends AbstractController {
 	@Autowired
 	private ConsumptionDetailValidator validator;
 	
-	@InitBinder
+	@InitBinder("consumptionDetail")
 	private void initBinder(WebDataBinder binder) {
 		binder.setValidator(validator);
 	}
+	
+	private static final String ERROR_INFO = "INVALID";
 
 	@RequestMapping(value = "current", method = RequestMethod.GET)
 	public String current(Model model) {
@@ -91,9 +91,7 @@ public class CurrentController extends AbstractController {
 			validator.validate(cd, bindingResult);
 		}
 		if (bindingResult.hasErrors()) {
-			String errorInfo = "{\"info\"".concat(":").concat("\"Invalid Input.\"}");
-
-			return errorInfo;
+			return ERROR_INFO;
 		} else {
 			consumptionDetailService.addConsumptionDetails(cds);
 			return null;
@@ -108,11 +106,11 @@ public class CurrentController extends AbstractController {
 	
 	@RequestMapping(value = "/consumption-details/{id}", method = RequestMethod.PUT)
 	@ResponseBody
-	public void updateConsumptionDetailById(@PathVariable final int id, @RequestBody  @Validated  ConsumptionDetail cd, BindingResult bindingResult) {
+	public String updateConsumptionDetailById(@PathVariable final int id, @RequestBody @Valid ConsumptionDetail cd, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			System.out.println("xx");
-			return;
+			return ERROR_INFO;
 		}
 		consumptionDetailService.updateConsumptionDetailById(cd);
+		return null;
 	}
 }
