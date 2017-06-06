@@ -14,8 +14,8 @@
 		<div class="loginmodal-container">
 			<h1>XX 系  统  登  录</h1><br>
 			<form action="login" method="post">
-				<input type="text" name="userName" placeholder="用户名">
-				<input type="password" name="passWord" placeholder="密码">
+				<input type="text" name="username" placeholder="用户名">
+				<input type="password" name="password" placeholder="密码">
 				<input type="submit" class="login loginmodal-submit" value="登录">
 	        </form>
 			<div class="login-help">
