@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 @Component
-public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class SimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
  
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
  

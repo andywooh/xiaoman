@@ -31,7 +31,7 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li class="">
 							<!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown">退出<strong class="caret"></strong></a> -->
-							<a href="#" >退出<strong class="caret1"></strong></a>
+							<a href="/logout" >退出<strong class="caret"></strong></a>
 <!-- 							<ul class="dropdown-menu">
 								<li>
 									 <a href="#">Action</a>

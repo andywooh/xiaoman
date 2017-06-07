@@ -23,13 +23,6 @@
 			<div class="row clearfix">
 				<!-- 数据录入 -->
 				<div class="col-md-6 column">
-					<div>
-						<img width="80%" src="/static/image/template.jpg"/>
-					</div>
-					<br/>
-				</div>
-				
-				<div class="col-md-6 column">
 					<div role="form" class="form-inline">
 						<div class="form-group">
 							 <input id="keyWord" type="text" name="keyWord" class="form-control" id="exampleInputEmail1" placeholder="关键词"/>
@@ -66,6 +59,14 @@
 						</tbody>
 					</table>		
 				</div>
+				<!-- 图表区域 -->
+				<div class="col-md-6 column">
+					<div>
+						<img width="80%" src="/static/image/template.jpg"/>
+					</div>
+					<br/>
+				</div>
+				
 			</div>
 		</div>
 	</div>

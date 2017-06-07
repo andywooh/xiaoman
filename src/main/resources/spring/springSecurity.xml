@@ -11,7 +11,7 @@
     <http pattern="/login.jsp" security="none"/>  
 
     <http use-expressions="false">  
-        <!-- 登录功能 -->  
+        <!-- 登录功能 -->
         <form-login login-page="/login.jsp" 
         	authentication-failure-url="/login.jsp?error" 
         	authentication-success-handler-ref="authenticationSuccessHandler"/>    
@@ -21,19 +21,27 @@
         <logout />
         <!-- 关闭CSRF -->
         <csrf disabled="true"/>
+        <remember-me/> 
     </http>  
     
     <beans:bean id="authenticationSuccessHandler"
-        class="com.andywooh.xiaoman.controller.MySimpleUrlAuthenticationSuccessHandler" />    
-   
-    <authentication-manager>  
+        class="com.andywooh.xiaoman.controller.SimpleUrlAuthenticationSuccessHandler" />    
+
+<!--     <authentication-manager>  
         <authentication-provider>  
             <user-service>  
-                <!-- 这里创建两个用户，可以通过用户名密码登录 -->  
+                这里创建两个用户，可以通过用户名密码登录  
                 <user name="admin" password="123" authorities="ROLE_USER, ROLE_ADMIN" />
                 <user name="jimi" password="123" authorities="ROLE_USER" />
             </user-service>  
         </authentication-provider>  
-    </authentication-manager>  
-   
+    </authentication-manager>  --> 
+
+	<authentication-manager>  
+	    <authentication-provider>  
+	        <jdbc-user-service data-source-ref="mydatasource"  
+	            users-by-username-query="select username, password, enabled from user where username = ?"  
+	            authorities-by-username-query="select username, role from user_role where username = ?" />  
+	    </authentication-provider>  
+	</authentication-manager>     
 </beans:beans>  
