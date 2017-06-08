@@ -13,7 +13,7 @@
 	 		 contextConfigLocation （处理器映射器HandllerMapping  处理器适配器HandllerAdapter  视图解析器ViewResolver 等等 ） -->
 	 		<init-param>
 	 			<param-name>contextConfigLocation</param-name>  <!-- 此处为固定写法 -->
-	 			<param-value>classpath:spring/applicationContext.xml,classpath:spring/springSecurity.xml</param-value>  <!-- classpath指tomcat的webapps下对应工程的/WEB-INF/classes/下   applicationContext.xml配置文件名可变 -->
+	 			<param-value>classpath:spring/applicationContext.xml,classpath:spring/spring-security.xml</param-value>  <!-- classpath指tomcat的webapps下对应工程的/WEB-INF/classes/下   applicationContext.xml配置文件名可变 -->
 	 		</init-param>
 	 		<load-on-startup>1</load-on-startup>  <!-- 服务器启动后就实例化DispatcherServlet对象 -->
 	</servlet>

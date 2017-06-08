@@ -19,7 +19,7 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li>
-							 <a href="/history/list-items">历史</a>
+							 <a href="/history/">历史</a>
 						</li>
 						<li>
 							 <a href="/statistics">统计</a>
