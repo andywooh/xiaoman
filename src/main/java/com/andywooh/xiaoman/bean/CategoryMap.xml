@@ -23,6 +23,6 @@
 	<insert id="addCategory" parameterType="com.andywooh.xiaoman.bean.Category">
 		insert into category (category_id, category_name)
 		values
-	        (#{category_id}, #{category_name})
+	        (#{categoryId}, #{categoryName})
 	</insert>		
 </mapper>

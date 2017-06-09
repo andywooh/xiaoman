@@ -49,7 +49,7 @@ public class SettingsController extends AbstractController {
 	@RequestMapping(value = "/category", method = RequestMethod.POST)
 	@ResponseBody 
 	public void addCategory(@RequestBody Category category) {
-		Integer categoryId = 1000;
+		Integer categoryId = 1021;
 		category.setCategoryId(categoryId);
 		categoryService.addCategory(category);
 	}
