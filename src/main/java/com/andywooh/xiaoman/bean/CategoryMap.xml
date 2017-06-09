@@ -15,4 +15,14 @@
 	<select id="getCategoryIds"  resultType="int">
 		select category_id from category order by category_id
 	</select>	
+	
+	<delete id="deleteCategoryById" parameterType="int">
+		delete from category where id = #{id}
+	</delete>
+
+	<insert id="addCategory" parameterType="com.andywooh.xiaoman.bean.Category">
+		insert into category (category_id, category_name)
+		values
+	        (#{category_id}, #{category_name})
+	</insert>		
 </mapper>

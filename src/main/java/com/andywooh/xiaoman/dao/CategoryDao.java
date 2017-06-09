@@ -11,5 +11,6 @@ public interface CategoryDao
 {
 	public List<Category> getCategories();
 	public List<Integer> getCategoryIds();
+	public void addCategory(Category category);
 	
 }
