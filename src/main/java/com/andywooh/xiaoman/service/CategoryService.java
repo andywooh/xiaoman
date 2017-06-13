@@ -24,4 +24,20 @@ public class CategoryService {
 	public void addCategory(Category category) {
 		categoryDao.addCategory(category);
 	}
+	
+	public Integer getNextCategoryId(){
+		return categoryDao.getNextCategoryId();
+	}
+	
+	public void deleteCategoryById(int id) {
+		categoryDao.deleteCategoryById(id);
+	}
+	
+	public void updateCategoryById(int id) {
+		categoryDao.updateCategoryById(id);
+	}
+	
+	public Category getCategoryById(int id) {
+		return categoryDao.getCategoryById(id);
+	}
 }

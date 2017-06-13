@@ -21,7 +21,7 @@
 				<button id="tianjia" type="button" class="btn right btn-warning glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_modal">添加</button>
 			</div>
 			<br/>
-				<table class="table table-striped table-hover table-condensed">
+				<table id="settings_page_table" class="table table-striped table-hover table-condensed">
 						<thead>
 							<tr>
 								<th>类别</th>
@@ -36,7 +36,7 @@
 										<a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id})">
 											<span class="glyphicon glyphicon-edit"></span> 
 			        					</a>   						
-										<a class="btn btn-danger btn-sm" onclick="confirmDel(${c.categoryId})">
+										<a class="btn btn-danger btn-sm" onclick="confirmDel(${c.id})">
 											<span class="glyphicon glyphicon-trash"></span>
 			        					</a>
 									</td>
@@ -47,22 +47,23 @@
 		</div>
 	</div>
 </div>
+<div id="cid" style="display: none;"></div>
 </html>
 
 <jsp:include page="confirm_del.jsp"></jsp:include>
-<jsp:include page="edit_modal.jsp"></jsp:include>
+<jsp:include page="settings_edit_modal.jsp"></jsp:include>
 <jsp:include page="settings_add_modal.jsp"></jsp:include>
 
 <script type="text/javascript">
 
 	// 确认删除？
-	function confirmDel(c_id) {
-		$("#c_id").val(c_id);
+	function confirmDel(id) {
+		$("#cid").val(id);
 		$('#confirmDel').modal();	
 	}
 	// 删除
 	function delItem() {
-		var c_id = $('#c_id').val();  		
+		var c_id = $('#cid').val();  		
 
 		$.ajax({
 			type: "delete",
@@ -71,7 +72,7 @@
 			//contentType: "application/json; charset=utf-8",
 			success: function (result) {
 				// 添加后刷新页面
-		 		$("#settings_page").load("/sys-config", function(response,status,xhr) {
+		 		$("#settings_page_table").load("/sys-config?refresh=yes", function(response,status,xhr) {
 				});
 	  		},
 			error: function (result) {
@@ -96,7 +97,7 @@
 					alert("Invalid Input.")
 				} else {
 					// 刷新页面
-			 		$("#settings_page").load("/sys-config", function(response,status,xhr) {
+			 		$("#settings_page_table").load("/sys-config?refresh=yes", function(response,status,xhr) {
 					});
 				}
 	
@@ -114,6 +115,23 @@
 		$("#categoryName").val('');
 	}
 
+	// 弹出编辑框
+	function toEdit(id, categoryIdselected) {
+		// 类别名称
+		$.ajax({
+			type: "GET",
+			url: "/sys-config/category" + id,
+			//dataType: "json",
+			contentType: "application/json; charset=utf-8",
+			success: function (result) {
+				$("#editCategoryName").val(categoryName);
+	  		},
+			error: function (result){
+				alert("Failed");
+			}
+		});
+	}
+		
 
 
 </script>

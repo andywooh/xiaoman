@@ -10,7 +10,10 @@ import com.andywooh.xiaoman.util.MapperMark;
 public interface CategoryDao
 {
 	public List<Category> getCategories();
+	public Category getCategoryById(int id);
 	public List<Integer> getCategoryIds();
+	public Integer getNextCategoryId();
 	public void addCategory(Category category);
-	
+	public void deleteCategoryById(int id);
+	public void updateCategoryById(int id);
 }

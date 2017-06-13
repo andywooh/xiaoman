@@ -6,6 +6,11 @@
 	<select id="getCategories" resultMap="resultMap">
 		select * from category order by category_id
 	</select>
+
+	<select id="getCategoryById"  parameterType="int" resultMap="resultMap">
+		select * from category where id = #{id}
+	</select>	
+
  	<resultMap id="resultMap" type="com.andywooh.xiaoman.bean.Category">
 		<id property="id" column="id"/>    <!-- 主键字段映射用id  id属性接收id字段的值   （联合主键需要配置多个id） -->
 		<result property="categoryId" column="category_id"/>
@@ -14,7 +19,7 @@
 	
 	<select id="getCategoryIds"  resultType="int">
 		select category_id from category order by category_id
-	</select>	
+	</select>
 	
 	<delete id="deleteCategoryById" parameterType="int">
 		delete from category where id = #{id}
@@ -24,5 +29,17 @@
 		insert into category (category_id, category_name)
 		values
 	        (#{categoryId}, #{categoryName})
-	</insert>		
+	</insert>
+	
+	<select id="getNextCategoryId"  resultType="int">
+		select max(category_id) + 1 from category
+	</select>
+	
+	<update id="updateCategoryById" parameterType="com.andywooh.xiaoman.bean.Category">
+		update category set 
+			category_name = #{categoryName}
+		where id = #{id}
+	</update>
+	
+	
 </mapper>
