@@ -116,15 +116,16 @@
 	}
 
 	// 弹出编辑框
-	function toEdit(id, categoryIdselected) {
+	function toEdit(id) {
+		$('#edit_id').val(id);	
 		// 类别名称
 		$.ajax({
 			type: "GET",
-			url: "/sys-config/category" + id,
+			url: "/sys-config/categories/" + id,
 			//dataType: "json",
 			contentType: "application/json; charset=utf-8",
 			success: function (result) {
-				$("#editCategoryName").val(categoryName);
+				$("#editCategoryName").val(result.categoryName);
 	  		},
 			error: function (result){
 				alert("Failed");
@@ -132,6 +133,34 @@
 		});
 	}
 		
+	// 保存修改
+	function updateCategory() {
+		var data;
+		var _id = $("#edit_id").val();
+		var _categoryName = $("#editCategoryName").val();
+		if ($.trim(cid) != "" && $.trim(editCategoryName) != "") {
+			data = {id:_id, categoryName:_categoryName};
+		}
+		var data_str = JSON.stringify(data);		
+		$.ajax({
+			type: "put",
+			url: "/sys-config/categories/" + _id,
+			data: data_str,
+			contentType: "application/json; charset=utf-8",
+			success: function (result) {
+				if (result == "INVALID") {
+					alert("Invalid Input.")
+				} else {
+					// 刷新页面
+			 		$("#settings_page_table").load("/sys-config?refresh=yes", function(response,status,xhr) {
+					});
+				}
+	  		},
+			error: function (result) {
+				alert("Failed to update item.");
+			}
+		});
+	}
 
 
 </script>

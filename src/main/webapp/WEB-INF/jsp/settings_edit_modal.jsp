@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- 添加模态框 -->
 <!-- <div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"> -->
-<form class="modal fade" id="add_modal">
+<form class="modal fade" id="edit_modal">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
@@ -31,4 +31,5 @@
 	      </div>
 	    </div>
 	  </div>
+	  <div id="edit_id" style="display: none;"></div>
 </form>

@@ -46,6 +46,12 @@ public class SettingsController extends AbstractController {
 		return categoryService.getCategories();
 	}
 
+	@RequestMapping(value = "categories/{id}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Category getCategoryById(@PathVariable final int id) {
+		return categoryService.getCategoryById(id);
+	}
+
 	@RequestMapping(value = "categories/{id}", method = RequestMethod.DELETE)
 	@ResponseBody
 	public void delItem(@PathVariable final int id) {
@@ -59,5 +65,10 @@ public class SettingsController extends AbstractController {
 		category.setCategoryId(categoryId);
 		categoryService.addCategory(category);
 	}
-		
+
+	@RequestMapping(value = "categories/{id}", method = RequestMethod.PUT)
+	@ResponseBody
+	public void updateCategory(@RequestBody Category category, @PathVariable final int id) {
+		categoryService.updateCategoryById(category);
+	}
 }

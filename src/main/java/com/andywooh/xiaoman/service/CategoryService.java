@@ -33,8 +33,8 @@ public class CategoryService {
 		categoryDao.deleteCategoryById(id);
 	}
 	
-	public void updateCategoryById(int id) {
-		categoryDao.updateCategoryById(id);
+	public void updateCategoryById(Category category) {
+		categoryDao.updateCategoryById(category);
 	}
 	
 	public Category getCategoryById(int id) {

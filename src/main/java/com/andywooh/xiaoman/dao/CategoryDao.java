@@ -15,5 +15,5 @@ public interface CategoryDao
 	public Integer getNextCategoryId();
 	public void addCategory(Category category);
 	public void deleteCategoryById(int id);
-	public void updateCategoryById(int id);
+	public void updateCategoryById(Category category);
 }
