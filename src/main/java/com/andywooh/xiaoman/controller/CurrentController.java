@@ -62,7 +62,8 @@ public class CurrentController extends AbstractController {
 	@RequestMapping(value = "/consumption-details/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ConsumptionDetail getConsumptionDetailById(@PathVariable final int id) {
-		return consumptionDetailService.getConsumptionDetailById(id);
+		ConsumptionDetail cd = consumptionDetailService.getConsumptionDetailById(id);
+		return cd;
 	}
 	
 	

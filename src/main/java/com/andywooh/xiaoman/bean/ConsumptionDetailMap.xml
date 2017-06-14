@@ -13,7 +13,7 @@
 		</if>
 		<if test="currentMonth != null">
 			AND substr(cd.occur_date, 1, 7) = #{currentMonth}
-		</if>	
+		</if>
 		<if test="month != null">
 			AND substr(cd.occur_date, 1, 7) = #{month}
 		</if>			

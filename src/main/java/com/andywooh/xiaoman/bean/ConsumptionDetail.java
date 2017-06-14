@@ -1,5 +1,7 @@
 package com.andywooh.xiaoman.bean;
 
+import com.andywooh.xiaoman.util.CustomDoubleSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  * 
@@ -32,7 +34,7 @@ public class ConsumptionDetail
 		this.occurDate = occurDate;
 	}
 
-	public String getNote() 
+	public String getNote()
 	{
 		return note;
 	}
@@ -40,7 +42,7 @@ public class ConsumptionDetail
 	{
 		this.note = note;
 	}
-
+//	@JsonSerialize(using = CustomDoubleSerializer.class)
 	public Double getAmount() {
 		return amount;
 	}
