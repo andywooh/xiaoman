@@ -236,15 +236,19 @@
 
 	// 根据keyword查询item
 	function currentItemsByKeyword(id){
-		var aa = $("#test").val();
-		console.log(aa);
-		$("#test").val("aaaaaaaaaa");
 		var keyWord = $("#keyWord").val();
  		$("#data_table").load("/current/items?keyWord=" + keyWord, function(response,status,xhr) {
  			// alert(response);  //callback function
 		});
 	}
 
+	// 根据keyword查询item
+	function toPage(pageNumber){
+		var keyWord = $("#keyWord").val();
+ 		$("#data_table").load("/current?toPage=" + pageNumber, function(response,status,xhr) {
+ 			// alert(response);  //callback function
+		});
+	}
 	// 根据keyword查询item
 	function currentItemsByKeyword(){
 		var aa = $("#test").val();

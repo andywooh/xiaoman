@@ -54,11 +54,19 @@ public class CurrentController extends AbstractController {
 		Map<String, Object> condition = Maps.newHashMap();
 		Map<String, Object> condition2 = Maps.newHashMap();
 		String currentMonth =  MonthUtil.getCurrentMonth();
-		Page papge = new Page();
 		condition.put("currentMonth", currentMonth);
+		
 		if (toPage == null) {
-			condition.put("page", papge);
+			Page page = new Page();
+			Page pageBuild = buildPage("1");
+			condition.put("page", pageBuild);
+			model.addAttribute("page", pageBuild);
+		} else {
+			Page page = buildPage(toPage);
+			condition.put("page", page);
+			model.addAttribute("page", page);
 		}
+		
 		condition2.put("currentMonth", currentMonth);
 		condition2.put("keyWord", null);
 		
@@ -68,11 +76,35 @@ public class CurrentController extends AbstractController {
 		
 		Double totalAmount = consumptionDetailService.getTotalAmountByCondition(condition2);
 		
-		model.addAttribute("page", papge);
 		model.addAttribute("result", result);
 		model.addAttribute("currentStatistics", currentStatistics);
 		model.addAttribute("totalAmount", totalAmount);
-		return "current";
+		
+		if (toPage == null) {
+			
+			return "current";
+		} else {
+			return "table_tmp";
+			
+		}
+	}
+	
+	private Page buildPage(String toPage) {
+		Map<String, Object> condition = Maps.newHashMap();
+		String currentMonth =  MonthUtil.getCurrentMonth();
+		condition.put("currentMonth", currentMonth);
+		Page page = new Page();
+		page.setCurrentPage(Integer.valueOf(toPage));
+		condition.put("page", page);
+		int totalRows = consumptionDetailService.getTotalRowstByCondition(condition);
+		int totalPage = 1;
+		if(totalRows % page.getPageSize() == 0) {
+			totalPage = totalRows/page.getPageSize();
+		} else {
+			totalPage = totalRows/page.getPageSize() + 1;
+		}
+		page.setTotalPage(totalPage);
+		return page;
 	}
 	
 	

@@ -17,4 +17,5 @@ public interface ConsumptionDetailDao
 	public void updateConsumptionDetailById(ConsumptionDetail cd);
 	public List<CurrentStatistics> getCurrentStatistics(String currentMonth);
 	public Double getTotalAmountByCondition(Map<String, Object> condition);
+	public int getTotalRowstByCondition(Map<String, Object> condition);
 }

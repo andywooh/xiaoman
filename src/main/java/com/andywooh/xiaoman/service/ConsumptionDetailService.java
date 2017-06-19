@@ -44,4 +44,8 @@ public class ConsumptionDetailService {
 	public Double getTotalAmountByCondition(Map<String, Object> condition) {
 		return consumptionDetailDao.getTotalAmountByCondition(condition);
 	}
+	
+	public int getTotalRowstByCondition(Map<String, Object> condition) {
+		return consumptionDetailDao.getTotalRowstByCondition(condition);
+	}
 }
