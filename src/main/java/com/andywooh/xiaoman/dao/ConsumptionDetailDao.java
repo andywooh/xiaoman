@@ -3,6 +3,7 @@ package com.andywooh.xiaoman.dao;
 import java.util.List;
 import java.util.Map;
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
+import com.andywooh.xiaoman.bean.CurrentStatistics;
 import com.andywooh.xiaoman.bean.Page;
 import com.andywooh.xiaoman.util.MapperMark;
 
@@ -14,4 +15,6 @@ public interface ConsumptionDetailDao
 	public void addConsumptionDetails(List<ConsumptionDetail> cds);
 	public void delConsumptionDetailById(int id);
 	public void updateConsumptionDetailById(ConsumptionDetail cd);
+	public List<CurrentStatistics> getCurrentStatistics(String currentMonth);
+	public Double getTotalAmountByCondition(Map<String, Object> condition);
 }

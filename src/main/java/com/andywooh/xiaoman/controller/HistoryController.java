@@ -45,7 +45,7 @@ public class HistoryController extends AbstractController {
 	public String listItems(Model model) {
 		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(null);
 		model.addAttribute("result", result);
-		return "history_items";
+		return "history";
 	}
 	
 	@RequestMapping(value = "/consumption-details", method = RequestMethod.GET)

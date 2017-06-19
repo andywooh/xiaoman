@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
+import com.andywooh.xiaoman.bean.CurrentStatistics;
+import com.andywooh.xiaoman.bean.Page;
 import com.andywooh.xiaoman.service.CategoryService;
 import com.andywooh.xiaoman.service.ConsumptionDetailService;
 import com.andywooh.xiaoman.util.MonthUtil;
@@ -48,14 +50,29 @@ public class CurrentController extends AbstractController {
 	private static final String ERROR_INFO = "INVALID";
 
 	@RequestMapping(value = "current", method = RequestMethod.GET)
-	public String current(Model model) {
+	public String current(@RequestParam(required = false) String toPage, Model model) {
 		Map<String, Object> condition = Maps.newHashMap();
-		condition.put("currentMonth", MonthUtil.getCurrentMonth());
-
+		Map<String, Object> condition2 = Maps.newHashMap();
+		String currentMonth =  MonthUtil.getCurrentMonth();
+		Page papge = new Page();
+		condition.put("currentMonth", currentMonth);
+		if (toPage == null) {
+			condition.put("page", papge);
+		}
+		condition2.put("currentMonth", currentMonth);
+		condition2.put("keyWord", null);
+		
+		List<CurrentStatistics> currentStatistics = consumptionDetailService.getCurrentStatistics(currentMonth);
+		
 		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition);
+		
+		Double totalAmount = consumptionDetailService.getTotalAmountByCondition(condition2);
+		
+		model.addAttribute("page", papge);
 		model.addAttribute("result", result);
+		model.addAttribute("currentStatistics", currentStatistics);
+		model.addAttribute("totalAmount", totalAmount);
 		return "current";
-
 	}
 	
 	
@@ -70,7 +87,8 @@ public class CurrentController extends AbstractController {
 	@RequestMapping(value = "current/items", method = RequestMethod.GET)
 	public String getConsumptionDetailsByCondition(@RequestParam(required = false) String keyWord, Model model) {
 		if(StringUtils.isEmpty(keyWord)) {
-			current(model);
+			// TODO
+			current(null ,model);
 		}
 		Map<String, Object> condition = Maps.newHashMap();
 		condition.put("keyWord", keyWord);

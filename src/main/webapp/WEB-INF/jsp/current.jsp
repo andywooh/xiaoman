@@ -4,10 +4,11 @@
 <html>
 
 <head>
-<title>当月</title>
+<title>小满</title>
 <link rel="shortcut icon" href="/static/icon/robot.jpg"/>
 <script src="/webjars/jquery/2.1.1/jquery.min.js"></script>
 <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap-paginator/1.0.2/src/bootstrap-paginator.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
 <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 <link type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
@@ -28,9 +29,20 @@
 						<div class="form-group">
 							 <input id="keyWord" type="text" name="keyWord" class="form-control" id="exampleInputEmail1" placeholder="关键词"/>
 						</div>
-						
 						<button onclick="currentItemsByKeyword()" type="submit" class="btn btn-success glyphicon glyphicon-search">查询</button>
 						<button id="jiyibi" type="button"  class="btn btn-warning glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_modal">记一笔</button>
+						<br/>
+						<br/>
+						<div class="">
+							<table>
+								<tbody>
+									<tr class="label label-info">
+										<td>目前总计：</td>
+										<td id=""><fmt:formatNumber value="${totalAmount}" /></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>						
 					</div>
 					<br id="data_table_below"/>
 					<table id="data_table" class="table table-striped table-hover table-condensed">
@@ -59,7 +71,13 @@
 								</tr>
 							</c:forEach>
 						</tbody>
-					</table>		
+					</table>
+
+					<ul class="pagination">
+						<c:forEach var="i" begin="1" end="${page.totalPage}">
+							<li><a href="#" onclick="toPage(${i})">${i}</a></li>
+						</c:forEach>
+					</ul>
 				</div>
 				<!-- 图表区域 -->
 				<div class="col-md-6 column">
@@ -217,7 +235,21 @@
 	}
 
 	// 根据keyword查询item
+	function currentItemsByKeyword(id){
+		var aa = $("#test").val();
+		console.log(aa);
+		$("#test").val("aaaaaaaaaa");
+		var keyWord = $("#keyWord").val();
+ 		$("#data_table").load("/current/items?keyWord=" + keyWord, function(response,status,xhr) {
+ 			// alert(response);  //callback function
+		});
+	}
+
+	// 根据keyword查询item
 	function currentItemsByKeyword(){
+		var aa = $("#test").val();
+		console.log(aa);
+		$("#test").val("aaaaaaaaaa");
 		var keyWord = $("#keyWord").val();
  		$("#data_table").load("/current/items?keyWord=" + keyWord, function(response,status,xhr) {
  			// alert(response);  //callback function
@@ -318,5 +350,4 @@
 		});		
 	}
 	
-
 </script>

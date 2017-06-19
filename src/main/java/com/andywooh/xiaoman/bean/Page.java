@@ -10,11 +10,11 @@ public class Page
 	/**
 	 * 当前页，默认为第1页
 	 */
-	private Integer page = 1;
+	private Integer currentPage = 1;
 	/**
-	 * 每页的记录数，默认为每页15条记录
+	 * 每页的记录数，默认为每页20条记录
 	 */
-	private Integer pageSize = 15;
+	private Integer pageSize = 10;
 	/**
 	 * 总页数
 	 */
@@ -27,7 +27,7 @@ public class Page
 	 */
 	public Integer getBegin()
 	{
-		return (page - 1) * pageSize;
+		return (currentPage - 1) * pageSize;
 	}
 	
 	
@@ -37,19 +37,19 @@ public class Page
 	 */
 	public Integer getEnd()
 	{
-		return page * pageSize + 1;
+		return currentPage * pageSize + 1;
 	}
 	
-	public Integer getPage() 
-	{
-		return page;
+	public Integer getCurrentPage() {
+		return currentPage;
 	}
-	
-	public void setPage(Integer page) 
-	{
-		this.page = page;
+
+
+	public void setCurrentPage(Integer currentPage) {
+		this.currentPage = currentPage;
 	}
-	
+
+
 	public Integer getPageSize() 
 	{
 		return pageSize;
@@ -72,7 +72,7 @@ public class Page
 	
 	@Override
 	public String toString() {
-		return "Page [page=" + page + ", pageSize=" + pageSize + ", totalPage="
+		return "Page [currentPage=" + currentPage + ", pageSize=" + pageSize + ", totalPage="
 				+ totalPage + "]";
 	}
 }

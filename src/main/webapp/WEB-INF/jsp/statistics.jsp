@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<title>统计</title>
+<title>小满</title>
 <link rel="shortcut icon" href="/static/icon/robot.jpg"/>
 <script src="/webjars/jquery/2.1.1/jquery.min.js"></script> 
 <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>

@@ -18,6 +18,7 @@
 			AND substr(cd.occur_date, 1, 7) = #{month}
 		</if>			
 		order by cd.id desc
+		limit #{page.begin}, #{page.pageSize} <!-- 对应Page类中的getBegin方法      开始行    每页显示的记录数-->
 	</select>
 	
 	<select id="getConsumptionDetailById" parameterType="int"  resultMap="resultMap">
@@ -62,6 +63,25 @@
 		where id = #{id}
 	</update>
 
+	<select id="getCurrentStatistics" parameterType="java.lang.String" resultType="com.andywooh.xiaoman.bean.CurrentStatistics">
+       select category_name categoryName, sum(amount) amount from consumption_detail cd
+        inner join category ca 
+		on cd.category_id = ca.category_id
+        where  substr(cd.occur_date, 1, 7) = #{currentMonth}
+        group by categoryName
+        order by amount desc
+	</select>
+
+	<select id="getTotalAmountByCondition" resultType="java.lang.Double">
+       select sum(amount) amount from consumption_detail cd
+        where 1=1
+		<if test="currentMonth != null">
+			AND substr(cd.occur_date, 1, 7) = #{currentMonth}
+		</if>
+		<if test="keyWord != null">
+			AND cd.note like concat('%', #{keyWord}, '%')
+		</if>
+	</select>
 <!--	
 	查询总记录数
 	<select id="findRows" resultType="int">
