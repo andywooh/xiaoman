@@ -25,6 +25,11 @@
 	<!-- 组件扫描 -->
 	<context:component-scan base-package="com.andywooh"/>
 	
+	<!-- http://localhost:8080/swagger-ui.html -->
+	<context:component-scan base-package="com.andywooh.xiaoman.controller" />   
+	<mvc:default-servlet-handler />  
+	
+	
 	<!-- 支持RequestMapping   自动加载了 注解映射器HandlerMapping 和 注解适配器HandlerAdapter配置 等其他组件 -->
 	<mvc:annotation-driven/>
 	

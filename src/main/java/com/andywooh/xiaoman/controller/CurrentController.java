@@ -30,6 +30,9 @@ import com.andywooh.xiaoman.util.MonthUtil;
 import com.andywooh.xiaoman.validator.ConsumptionDetailValidator;
 import com.google.common.collect.Maps;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+
 
 @Controller
 public class CurrentController extends AbstractController {
@@ -49,24 +52,26 @@ public class CurrentController extends AbstractController {
 	
 	private static final String ERROR_INFO = "INVALID";
 
+    @ApiOperation(value = "当月", notes = "查询当月数据")  
+    @ApiImplicitParam(name = "toPage", value = "跳转到某页", required = false, dataType = "String")  
 	@RequestMapping(value = "current", method = RequestMethod.GET)
 	public String current(@RequestParam(required = false) String toPage, Model model) {
+		
 		Map<String, Object> condition = Maps.newHashMap();
-		Map<String, Object> condition2 = Maps.newHashMap();
 		String currentMonth =  MonthUtil.getCurrentMonth();
 		condition.put("currentMonth", currentMonth);
 		
-		if (toPage == null) {
-			Page page = new Page();
-			Page pageBuild = buildPage("1");
-			condition.put("page", pageBuild);
-			model.addAttribute("page", pageBuild);
-		} else {
+		if (toPage == null) { // 点击当月
+			Page page = buildPage("1");
+			condition.put("page", page);
+			model.addAttribute("page", page);
+		} else { // 点击页码
 			Page page = buildPage(toPage);
 			condition.put("page", page);
 			model.addAttribute("page", page);
 		}
 		
+		Map<String, Object> condition2 = Maps.newHashMap();
 		condition2.put("currentMonth", currentMonth);
 		condition2.put("keyWord", null);
 		
@@ -80,12 +85,10 @@ public class CurrentController extends AbstractController {
 		model.addAttribute("currentStatistics", currentStatistics);
 		model.addAttribute("totalAmount", totalAmount);
 		
-		if (toPage == null) {
-			
+		if (toPage == null) { // 点击当月，整页刷新
 			return "current";
 		} else {
-			return "table_tmp";
-			
+			return "table_tmp"; // 翻页，局部刷新
 		}
 	}
 	
@@ -93,9 +96,11 @@ public class CurrentController extends AbstractController {
 		Map<String, Object> condition = Maps.newHashMap();
 		String currentMonth =  MonthUtil.getCurrentMonth();
 		condition.put("currentMonth", currentMonth);
+		
 		Page page = new Page();
 		page.setCurrentPage(Integer.valueOf(toPage));
 		condition.put("page", page);
+		
 		int totalRows = consumptionDetailService.getTotalRowstByCondition(condition);
 		int totalPage = 1;
 		if(totalRows % page.getPageSize() == 0) {
@@ -103,6 +108,7 @@ public class CurrentController extends AbstractController {
 		} else {
 			totalPage = totalRows/page.getPageSize() + 1;
 		}
+		
 		page.setTotalPage(totalPage);
 		return page;
 	}

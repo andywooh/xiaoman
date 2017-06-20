@@ -290,7 +290,7 @@
 					alert("Invalid Input.")
 				} else {
 					// 刷新页面
-			 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+			 		$("#data_table").load("/current", function(response,status,xhr) {
 					});
 				}
 
