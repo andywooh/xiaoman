@@ -164,7 +164,7 @@
 		// 填充日期，明细，金额，
 		$.ajax({
 			type: "GET",
-			url: "/consumption-details/" + id,
+			url: "/current/consumption-details/" + id,
 			//dataType: "json",
 			contentType: "application/json; charset=utf-8",
 			success: function (result) {
@@ -216,7 +216,7 @@
 		var data_str = JSON.stringify(data);		
 		$.ajax({
 			type: "PUT",
-			url: "/consumption-details/" + _id,
+			url: "/current/consumption-details/" + _id,
 			data: data_str,
 			contentType: "application/json; charset=utf-8",
 			success: function (result) {
@@ -224,7 +224,7 @@
 					alert("Invalid Input.")
 				} else {
 					// 刷新页面
-			 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+			 		$("#data_table").load("/current/consumption-details?refresh=yes", function(response,status,xhr) {
 					});
 				}
 	  		},
@@ -235,27 +235,24 @@
 	}
 
 	// 根据keyword查询item
-	function currentItemsByKeyword(id){
-		var keyWord = $("#keyWord").val();
- 		$("#data_table").load("/current/items?keyWord=" + keyWord, function(response,status,xhr) {
- 			// alert(response);  //callback function
-		});
-	}
+//	function currentItemsByKeyword(id){
+//		var keyWord = $("#keyWord").val();
+// 		$("#data_table").load("/current/consumption-details?keyWord=" + keyWord, function(response,status,xhr) {
+// 			// alert(response);  //callback function
+//		});
+//	}
 
 	// 根据keyword查询item
-	function toPage(pageNumber){
+	function toPage(toPage){
 		var keyWord = $("#keyWord").val();
- 		$("#data_table").load("/current?toPage=" + pageNumber, function(response,status,xhr) {
+ 		$("#data_table").load("/current/consumption-details?toPage=" + toPage, function(response,status,xhr) {
  			// alert(response);  //callback function
 		});
 	}
 	// 根据keyword查询item
 	function currentItemsByKeyword(){
-		var aa = $("#test").val();
-		console.log(aa);
-		$("#test").val("aaaaaaaaaa");
 		var keyWord = $("#keyWord").val();
- 		$("#data_table").load("/current/items?keyWord=" + keyWord, function(response,status,xhr) {
+ 		$("#data_table").load("/current/consumption-details?keyWord=" + keyWord, function(response,status,xhr) {
  			// alert(response);  //callback function
 		});
 /*  		$.ajax({
@@ -283,14 +280,14 @@
 			type: "post",
 			//dataType: "text", //预期服务器的返回类型
 			contentType: "application/json; charset=utf-8", //
-			url: "/consumption-details",
+			url: "/current/consumption-details",
 			data: data_str,
 			success: function (result) {
 				if (result.info == "Invalid Input.") {
 					alert("Invalid Input.")
 				} else {
 					// 刷新页面
-			 		$("#data_table").load("/current", function(response,status,xhr) {
+			 		$("#data_table").load("/current/consumption-details?refresh=yes", function(response,status,xhr) {
 					});
 				}
 
@@ -340,12 +337,12 @@
 		
 		$.ajax({
 			type: "delete",
-			url: "/consumption-details/" + id,
+			url: "/current/consumption-details/" + id,
 			//dataType: "json",
 			//contentType: "application/json; charset=utf-8",
 			success: function (result) {
 				// 添加后刷新页面
-		 		$("#data_table").load("/current/items?keyWord=" + "", function(response,status,xhr) {
+		 		$("#data_table").load("/current/consumption-details?keyWord=" + "", function(response,status,xhr) {
 				});
 	  		},
 			error: function (result){
