@@ -224,7 +224,7 @@
 					alert("Invalid Input.")
 				} else {
 					// 刷新页面
-			 		$("#data_table").load("/current/consumption-details?refresh=yes", function(response,status,xhr) {
+			 		$("#data_table").load("/current/consumption-details?toFirstPage=yes", function(response,status,xhr) {
 					});
 				}
 	  		},
@@ -287,7 +287,7 @@
 					alert("Invalid Input.")
 				} else {
 					// 刷新页面
-			 		$("#data_table").load("/current/consumption-details?refresh=yes", function(response,status,xhr) {
+			 		$("#data_table").load("/current/consumption-details?toFirstPage=yes", function(response,status,xhr) {
 					});
 				}
 
@@ -342,7 +342,7 @@
 			//contentType: "application/json; charset=utf-8",
 			success: function (result) {
 				// 添加后刷新页面
-		 		$("#data_table").load("/current/consumption-details?keyWord=" + "", function(response,status,xhr) {
+		 		$("#data_table").load("/current/consumption-details?toFirstPage=yes", function(response,status,xhr) {
 				});
 	  		},
 			error: function (result){
