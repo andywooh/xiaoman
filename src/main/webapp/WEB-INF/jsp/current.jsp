@@ -31,53 +31,55 @@
 						</div>
 						<button onclick="currentItemsByKeyword()" type="submit" class="btn btn-success glyphicon glyphicon-search">查询</button>
 						<button id="jiyibi" type="button"  class="btn btn-warning glyphicon glyphicon-plus" data-toggle="modal" data-target="#add_modal">记一笔</button>
-						<br/>
-						<br/>
-						<div class="">
+
+					</div>
+					<br id="data_table_below table-hover table-condensed"/>
+					<div id="data_table">
+						<div class="table table-striped">
 							<table>
 								<tbody>
 									<tr class="label label-info">
-										<td>目前总计：</td>
+										<td>当月总计：</td>
 										<td id=""><fmt:formatNumber value="${totalAmount}" /></td>
 									</tr>
 								</tbody>
 							</table>
-						</div>						
-					</div>
-					<br id="data_table_below"/>
-					<table id="data_table" class="table table-striped table-hover table-condensed">
-						<thead>
-							<tr>
-								<th>日期</th><th>明细</th><th>金额</th><th>类别</th><th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-	                    	<c:forEach items="${result}" var="c">
-								<tr class="">
-									<%-- <td>${c.id}</td> --%>
-									<td>${c.occurDate}</td>
-									<td>${c.note}</td>
-									<td><fmt:formatNumber value="${c.amount}" /></td>
-									
-									<td>${c.category.categoryName}</td>
-									<td>
-										<a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id}, ${c.category.categoryId})">
-											<span class="glyphicon glyphicon-edit"></span> 
-			        					</a>   						
-										<a class="btn btn-danger btn-sm" onclick="confirmDel(${c.id})">
-											<span class="glyphicon glyphicon-trash"></span>
-			        					</a>
-									</td>
+						</div>		
+						<br/>				
+						<table id="" class="table table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>日期</th><th>明细</th><th>金额</th><th>类别</th><th>操作</th>
 								</tr>
+							</thead>
+							<tbody>
+		                    	<c:forEach items="${result}" var="c">
+									<tr class="">
+										<%-- <td>${c.id}</td> --%>
+										<td>${c.occurDate}</td>
+										<td>${c.note}</td>
+										<td><fmt:formatNumber value="${c.amount}" /></td>
+										
+										<td>${c.category.categoryName}</td>
+										<td>
+											<a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id}, ${c.category.categoryId})">
+												<span class="glyphicon glyphicon-edit"></span> 
+				        					</a>   						
+											<a class="btn btn-danger btn-sm" onclick="confirmDel(${c.id})">
+												<span class="glyphicon glyphicon-trash"></span>
+				        					</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+	
+						<ul class="pagination">
+							<c:forEach var="i" begin="1" end="${page.totalPage}">
+								<li><a href="#" onclick="toPage(${i})">${i}</a></li>
 							</c:forEach>
-						</tbody>
-					</table>
-
-					<ul class="pagination">
-						<c:forEach var="i" begin="1" end="${page.totalPage}">
-							<li><a href="#" onclick="toPage(${i})">${i}</a></li>
-						</c:forEach>
-					</ul>
+						</ul>
+					</div>
 				</div>
 				<!-- 图表区域 -->
 				<div class="col-md-6 column">
@@ -97,7 +99,7 @@
 <jsp:include page="confirm_del.jsp"></jsp:include>
 
 
-
+<div id="keyWord_tmp" style="display: none;"></div>
 
 </html>
 
@@ -244,14 +246,20 @@
 
 	// 根据keyword查询item
 	function toPage(toPage){
-		var keyWord = $("#keyWord").val();
- 		$("#data_table").load("/current/consumption-details?toPage=" + toPage, function(response,status,xhr) {
+		var url = "/current/consumption-details?toPage=" + toPage;
+		var keyWord = $("#keyWord_tmp").val();
+		if (keyWord != null) {
+			url = url + "&keyWord=" + keyWord;
+		}
+		
+ 		$("#data_table").load(url, function(response,status,xhr) {
  			// alert(response);  //callback function
 		});
 	}
 	// 根据keyword查询item
 	function currentItemsByKeyword(){
 		var keyWord = $("#keyWord").val();
+		$("#keyWord_tmp").val(keyWord); // 每次查询后，将ketWord暂存，再给翻页使用。防止出现在搜索框任意输入keyWord，但没点击搜素时，再点击翻页会把keyWord带上
  		$("#data_table").load("/current/consumption-details?keyWord=" + keyWord, function(response,status,xhr) {
  			// alert(response);  //callback function
 		});

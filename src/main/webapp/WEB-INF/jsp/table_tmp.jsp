@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<div class="">
+	<table>
+		<tbody>
+			<tr class="label label-info">
+				<td>当月总计：</td>
+				<td id=""><fmt:formatNumber value="${totalAmount}" /></td>
+			</tr>
+		</tbody>
+	</table>
+</div>		
+<br/>	
 <table id="data_table" class="table table-striped table-hover table-condensed">
 	<thead>
 		<tr>
@@ -27,3 +38,8 @@
 		</c:forEach>
 	</tbody>
 </table>
+<ul class="pagination">
+	<c:forEach var="i" begin="1" end="${page.totalPage}">
+		<li><a href="#" onclick="toPage(${i})">${i}</a></li>
+	</c:forEach>
+</ul>
