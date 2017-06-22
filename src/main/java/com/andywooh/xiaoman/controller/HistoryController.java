@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
+import com.andywooh.xiaoman.bean.Page;
 import com.andywooh.xiaoman.service.ConsumptionDetailService;
+import com.andywooh.xiaoman.util.MonthUtil;
 import com.andywooh.xiaoman.validator.ConsumptionDetailValidator;
 import com.google.common.collect.Maps;
 
@@ -42,10 +44,48 @@ public class HistoryController extends AbstractController {
 	private ConsumptionDetailService consumptionDetailService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String listItems(Model model) {
-		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(null);
-		model.addAttribute("result", result);
+	public String listItems(@RequestParam(required = false) String toPage,
+							Model model) {
+		if (toPage != null) {
+			
+			Map<String, Object> condition4CDs = Maps.newHashMap();
+			buidModel(condition4CDs, toPage, null, model);
+			return "history_table_tmp";
+		}
+		Map<String, Object> condition4CDs = Maps.newHashMap();
+		buidModel(condition4CDs, "1", null, model);
 		return "history";
+	}
+	
+	private void buidModel(Map<String, Object> condition4CDs, String toPage, String keyWord, Model model) {
+		Page page = buildPage(toPage, keyWord);
+		condition4CDs.put("keyWord", keyWord);
+		condition4CDs.put("page", page);
+		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition4CDs);
+		
+		model.addAttribute("result", result);
+		model.addAttribute("page", page);
+	}
+	
+	private Page buildPage(String toPage, String keyWord) {
+		Map<String, Object> condition = Maps.newHashMap();
+		String currentMonth =  MonthUtil.getCurrentMonth();
+		condition.put("currentMonth", currentMonth);
+		condition.put("keyWord", keyWord);
+		
+		Page page = new Page();
+		page.setCurrentPage(Integer.valueOf(toPage)); // setCurrentPage是为了分页中需要计算开始行数
+		
+		int totalRows = consumptionDetailService.getTotalRowstByCondition(condition);
+		int totalPage = 1;
+		if(totalRows % page.getPageSize() == 0) {
+			totalPage = totalRows/page.getPageSize();
+		} else {
+			totalPage = totalRows/page.getPageSize() + 1;
+		}
+		
+		page.setTotalPage(totalPage);
+		return page;
 	}
 	
 	@RequestMapping(value = "/consumption-details", method = RequestMethod.GET)

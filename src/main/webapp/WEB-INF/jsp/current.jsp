@@ -244,7 +244,7 @@
 //		});
 //	}
 
-	// 根据keyword查询item
+	// 翻页
 	function toPage(toPage){
 		var url = "/current/consumption-details?toPage=" + toPage;
 		var keyWord = $("#keyWord_tmp").val();
