@@ -12,6 +12,7 @@
 <script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
 <link type="text/css" href="/webjars/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
 <link type="text/css" href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+<script src="/static/js/pagination.js"></script> 
 </head>
 <div class="container">
 	<div class="row clearfix">
@@ -84,6 +85,14 @@
 		</div>
 	</div>
 </div>
+
+
+
+<div id="test2" style="text-align:center;" pagination="pagination_new" pagenumber="14" totalpage="15" ></div>  
+
+<button id="btn1">手动刷新指定分页条</button>  
+<button id="btn2">手动刷新全部分页条</button>  
+
 </html>
 
 <jsp:include page="confirm_del.jsp"></jsp:include>
@@ -202,4 +211,27 @@
 			}
 		});		
 	}
+	
+    function paginationClick(pagination_id){  
+        var pagenumber = $('#'+pagination_id+'').attr('pagenumber');  
+        var totalpage = $('#'+pagination_id+'').attr('totalpage');  
+        alert('zmy通用分页测试：当前id：'+pagination_id+' , pagenumber:'+pagenumber+' , totalpage:'+totalpage);  
+    }  
+    $(function(){  
+        $('#btn1').click(function(){  
+            $('#test3').attr('pagenumber','2');  
+            $('#test3').attr('totalpage','4');  
+            initPagination($('#test3'));  
+        });  
+        $('#btn2').bind('click',function(){  
+            $('#test3').attr('pagenumber','2');  
+            $('#test3').attr('totalpage','4');  
+  
+            $('#test1').attr('pagenumber','7');  
+            $('#test1').attr('totalpage','10');  
+            $('#test1').attr('paginationMaxLength','6');  
+            paginationInit();  
+        });  
+    });  
+    
 </script>
