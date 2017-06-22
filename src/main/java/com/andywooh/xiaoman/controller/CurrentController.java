@@ -135,60 +135,26 @@ public class CurrentController extends AbstractController {
 		model.addAttribute("totalAmount", totalAmount);
 		
 		if ("yes".equals(toFirstPage)) { // 添加、删除、修改后返回首页  局部刷新   刷新总页数
-//			Page page = buildPage("1", null);
-//			condition4CDs.put("keyWord", null);
-//			condition4CDs.put("page", page);
-//			List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition4CDs);
-//			
-//			model.addAttribute("result", result);
-//			model.addAttribute("page", page);
+
 			buidModel(condition4CDs, "1", null, model);
-			
 			return "table_tmp";
+			
 		} else if (keyWord == null && toPage == null) { // 点击当月  整页刷新
-//			Page page = buildPage("1", null);
-//			condition4CDs.put("keyWord", null);
-//			condition4CDs.put("page", page);
-//			List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition4CDs);
-//			
-//			model.addAttribute("result", result);
-//			model.addAttribute("page", page);
 			
 			buidModel(condition4CDs, "1", null, model);
 			return "current";
 			
 		} else if (keyWord != null && toPage == null) { // 条件查询  局部刷新  刷新总页数
-//			Page page = buildPage("1", keyWord);
-//			condition4CDs.put("keyWord", keyWord);
-//			condition4CDs.put("page", page);
-//			List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition4CDs);
-//			
-//			model.addAttribute("result", result);
-//			model.addAttribute("page", page);
 			
 			buidModel(condition4CDs, "1", keyWord, model);
 			return "table_tmp";
 		
 		} else if (keyWord != null && toPage != null) { // 条件查询  再翻页  局部刷新    刷新总页数
-//			Page page = buildPage(toPage, keyWord);
-//			condition4CDs.put("keyWord", keyWord);
-//			condition4CDs.put("page", page);
-//			List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition4CDs);
-//			
-//			model.addAttribute("result", result);
-//			model.addAttribute("page", page);
 			
 			buidModel(condition4CDs, toPage, keyWord, model);
 			return "table_tmp";
 			
 		} else if (toPage != null) { // 没有查询条件  点击页码   局部刷新
-//			Page page = buildPage(toPage, null);
-//			condition4CDs.put("keyWord", null);
-//			condition4CDs.put("page", page);
-//			List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition4CDs);
-//			
-//			model.addAttribute("result", result);
-//			model.addAttribute("page", page);
 			
 			buidModel(condition4CDs, toPage, null, model);
 			return "table_tmp";
@@ -217,7 +183,7 @@ public class CurrentController extends AbstractController {
 		condition.put("keyWord", keyWord);
 		
 		Page page = new Page();
-		page.setCurrentPage(Integer.valueOf(toPage));
+		page.setCurrentPage(Integer.valueOf(toPage)); // setCurrentPage是为了分页中需要计算开始行数
 		
 		int totalRows = consumptionDetailService.getTotalRowstByCondition(condition);
 		int totalPage = 1;
