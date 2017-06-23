@@ -44,22 +44,63 @@ public class HistoryController extends AbstractController {
 	private ConsumptionDetailService consumptionDetailService;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String listItems(@RequestParam(required = false) String toPage,
-							Model model) {
-		if (toPage != null) {
-			
-			Map<String, Object> condition4CDs = Maps.newHashMap();
-			buidModel(condition4CDs, toPage, null, model);
-			return "history_table_tmp";
-		}
-		Map<String, Object> condition4CDs = Maps.newHashMap();
-		buidModel(condition4CDs, "1", null, model);
-		return "history";
+	public String listItems(Model model) {
+		
+		return getItemsByCondition(null, null, null, null, model);
+		
 	}
 	
-	private void buidModel(Map<String, Object> condition4CDs, String toPage, String keyWord, Model model) {
-		Page page = buildPage(toPage, keyWord);
+	@RequestMapping(value = "/consumption-details", method = RequestMethod.GET)
+	public String getItemsByCondition(@RequestParam(required = false) String month, 
+										@RequestParam(required = false) String keyWord, 
+										@RequestParam(required = false) String toPage,
+										@RequestParam(required = false) String toFirstPage,
+										Model model) {
+		
+		Map<String, Object> condition = Maps.newHashMap();
+		
+//		if (toPage != null) {
+//			
+//			Map<String, Object> condition4CDs = Maps.newHashMap();
+//			buidModel(condition4CDs, toPage, null, model);
+//			return "history_table_tmp";
+//		}
+		month = StringUtils.isEmpty(month) ? null : month;
+		if ("yes".equals(toFirstPage)) { // 添加、删除、修改后返回首页  局部刷新   刷新总页数
+
+			buidModel(condition, "1", null, null, model);
+			return "history_table_tmp";
+			
+		} else if (keyWord == null && toPage == null) { // 点击历史  整页刷新
+			
+			buidModel(condition, "1", null, null, model);
+			return "history";
+			
+		} else if (keyWord != null && toPage == null) { // 条件查询  局部刷新  刷新总页数
+			
+			buidModel(condition, "1", keyWord, month, model);
+			return "history_table_tmp";
+		
+		} else if (keyWord != null && toPage != null) { // 条件查询  再翻页  局部刷新    刷新总页数
+			
+			buidModel(condition, toPage, keyWord, month, model);
+			return "history_table_tmp";
+			
+		} else if (toPage != null) { // 没有查询条件  点击页码   局部刷新
+			
+			buidModel(condition, toPage, null, null, model);
+			return "history_table_tmp";
+			
+		} else {
+			return null;
+		}
+		
+	}
+
+	private void buidModel(Map<String, Object> condition4CDs, String toPage, String keyWord, String month, Model model) {
+		Page page = buildPage(toPage, keyWord, month);
 		condition4CDs.put("keyWord", keyWord);
+		condition4CDs.put("month", month);
 		condition4CDs.put("page", page);
 		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition4CDs);
 		
@@ -67,11 +108,10 @@ public class HistoryController extends AbstractController {
 		model.addAttribute("page", page);
 	}
 	
-	private Page buildPage(String toPage, String keyWord) {
+	private Page buildPage(String toPage, String keyWord, String month) {
 		Map<String, Object> condition = Maps.newHashMap();
-		String currentMonth =  MonthUtil.getCurrentMonth();
-		condition.put("currentMonth", currentMonth);
 		condition.put("keyWord", keyWord);
+		condition.put("currentMonth", month);  // 因为根据条件计算总条数的sql中使用了currentMonth
 		
 		Page page = new Page();
 		page.setCurrentPage(Integer.valueOf(toPage)); // setCurrentPage是为了分页中需要计算开始行数
@@ -86,19 +126,6 @@ public class HistoryController extends AbstractController {
 		
 		page.setTotalPage(totalPage);
 		return page;
-	}
-	
-	@RequestMapping(value = "/consumption-details", method = RequestMethod.GET)
-	public String getItemsByCondition(@RequestParam(required = true) String month, @RequestParam(required = true) String keyWord, Model model) {
-		Map<String, Object> condition = Maps.newHashMap();
-		if (StringUtils.isEmpty(month)) {
-			month = null;
-		}
-		condition.put("month", month);
-		condition.put("keyWord", keyWord);
-		List<ConsumptionDetail> result = consumptionDetailService.getConsumptionDetails(condition);
-		model.addAttribute("result", result);
-		return "table_tmp";
 	}
 	
 	@RequestMapping(value = "/consumption-details/{id}", method = RequestMethod.DELETE)

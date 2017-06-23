@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<div class="">
+<head>
+<script src="/static/js/pagination.js"></script> 
+</head>
+<%-- <div class="">
 	<table>
 		<tbody>
 			<tr class="label label-info">
@@ -10,8 +13,7 @@
 			</tr>
 		</tbody>
 	</table>
-</div>		
-<br/>	
+</div>	 --%>	
 <table id="data_table" class="table table-striped table-hover table-condensed">
 	<thead>
 		<tr>
@@ -39,3 +41,23 @@
 	</tbody>
 </table>
 <div id="pagination" style="text-align:center;" pagination="pagination_new" pagenumber="${page.currentPage}" totalpage="${page.totalPage}" ></div>
+
+<script type="text/javascript">
+	function paginationClick(pagination_id){  
+		var month = $("#month").val();	
+	    var toPage = $('#'+pagination_id+'').attr('pagenumber');  
+	    var totalPage = $('#'+pagination_id+'').attr('totalpage');  
+	    //console.log('zmy通用分页测试：当前id：'+pagination_id+' , pagenumber:'+pagenumber+' , totalpage:'+totalpage);
+		var url = "/history/consumption-details?toPage=" + toPage + "&month=" + month;
+		var keyWord = $("#keyWord_tmp").val();
+		if (keyWord != null) {
+			url = url + "&keyWord=" + keyWord;
+		}
+		
+			$("#data_table").load(url, function(response,status,xhr) {
+				// alert(response);  //callback function
+		});        
+	    
+	}
+
+</script>

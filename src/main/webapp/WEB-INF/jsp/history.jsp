@@ -49,38 +49,40 @@
 						</div>
 						<button onclick="getItemsByCondition()" type="submit" class="btn btn-success glyphicon glyphicon-search">查询</button>
 					</div>
-				
-					<table id="data_table" class="table table-striped table-hover table-condensed">
-						<thead>
-							<tr>
-								<th>日期</th>
-								<th>明细</th>
-								<th>金额</th>
-								<th>类别</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody >
-	                    	<c:forEach items="${result}" var="c">
-								<tr class="">
-									<%-- <td>${c.id}</td> --%>
-									<td>${c.occurDate}</td>
-									<td>${c.note}</td>
-									<td><fmt:formatNumber value="${c.amount}" /></td>
-									<td>${c.category.categoryName}</td>
-									<td>
-										<a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id}, ${c.category.categoryId})">
-											<span class="glyphicon glyphicon-edit"></span> 
-			        					</a>   						
-										<a class="btn btn-danger btn-sm" onclick="confirmDel(${c.id})">
-											<span class="glyphicon glyphicon-trash"></span>
-			        					</a>
-									</td>
+					<br/>
+					<div id="data_table">
+						<table class="table table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>日期</th>
+									<th>明细</th>
+									<th>金额</th>
+									<th>类别</th>
+									<th>操作</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>		
+							</thead>
+							<tbody >
+		                    	<c:forEach items="${result}" var="c">
+									<tr class="">
+										<%-- <td>${c.id}</td> --%>
+										<td>${c.occurDate}</td>
+										<td>${c.note}</td>
+										<td><fmt:formatNumber value="${c.amount}" /></td>
+										<td>${c.category.categoryName}</td>
+										<td>
+											<a class="btn btn-warning btn-sm"  data-toggle="modal" data-target="#edit_modal" onclick="toEdit(${c.id}, ${c.category.categoryId})">
+												<span class="glyphicon glyphicon-edit"></span> 
+				        					</a>   						
+											<a class="btn btn-danger btn-sm" onclick="confirmDel(${c.id})">
+												<span class="glyphicon glyphicon-trash"></span>
+				        					</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					<div id="pagination" style="text-align:center;" pagination="pagination_new" pagenumber="${page.currentPage}" totalpage="${page.totalPage}" ></div>  
+					</div>		
 				</div>
 			</div>
 		</div>
@@ -125,7 +127,7 @@
 			//contentType: "application/json; charset=utf-8",
 			success: function (result) {
 				// 添加后刷新页面
-		 		$("#data_table").load("/history/consumption-details?keyWord=" + keyWord + "&month=" + month, function(response,status,xhr) {
+		 		$("#data_table").load("/history/consumption-details?toFirstPage=yes", function(response,status,xhr) {
 				});
 	  		},
 			error: function (result){
@@ -201,7 +203,7 @@
 					alert("Invalid Input.")
 				} else {
 					// 刷新页面
-			 		$("#data_table").load("/history/consumption-details?keyWord=" + keyWord + "&month=" + month, function(response,status,xhr) {
+			 		$("#data_table").load("/history/consumption-details?toFirstPage=yes", function(response,status,xhr) {
 					});
 				}
 	  		},
@@ -224,11 +226,12 @@
 		});
 	}
 	
-    function paginationClick(pagination_id){  
+    function paginationClick(pagination_id) {
+		var month = $("#month").val();
         var toPage = $('#'+pagination_id+'').attr('pagenumber');  
         var totalPage = $('#'+pagination_id+'').attr('totalpage');  
         //console.log('zmy通用分页测试：当前id：'+pagination_id+' , pagenumber:'+pagenumber+' , totalpage:'+totalpage);
-		var url = "/history/consumption-details?toPage=" + toPage;
+		var url = "/history/consumption-details?toPage=" + toPage + "&month=" + month;
 		var keyWord = $("#keyWord_tmp").val();
 		if (keyWord != null) {
 			url = url + "&keyWord=" + keyWord;
