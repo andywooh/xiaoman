@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
-import com.andywooh.xiaoman.bean.CurrentStatistics;
+import com.andywooh.xiaoman.bean.Statistics;
 import com.andywooh.xiaoman.bean.Page;
 import com.andywooh.xiaoman.dao.ConsumptionDetailDao;
 
@@ -37,8 +37,8 @@ public class ConsumptionDetailService {
 		consumptionDetailDao.updateConsumptionDetailById(cd);
 	}	
 	
-	public List<CurrentStatistics> getCurrentStatistics(String currentMonth) {
-		return consumptionDetailDao.getCurrentStatistics(currentMonth);
+	public List<Statistics> getStatistics(String month) {
+		return consumptionDetailDao.getStatistics(month);
 	}
 	
 	public Double getTotalAmountByCondition(Map<String, Object> condition) {

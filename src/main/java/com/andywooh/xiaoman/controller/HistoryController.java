@@ -1,5 +1,6 @@
 package com.andywooh.xiaoman.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -21,8 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
 import com.andywooh.xiaoman.bean.Page;
+import com.andywooh.xiaoman.bean.Statistics;
 import com.andywooh.xiaoman.service.ConsumptionDetailService;
-import com.andywooh.xiaoman.util.MonthUtil;
 import com.andywooh.xiaoman.validator.ConsumptionDetailValidator;
 import com.google.common.collect.Maps;
 
@@ -59,13 +60,14 @@ public class HistoryController extends AbstractController {
 		
 		Map<String, Object> condition = Maps.newHashMap();
 		
-//		if (toPage != null) {
-//			
-//			Map<String, Object> condition4CDs = Maps.newHashMap();
-//			buildModel(condition4CDs, toPage, null, model);
-//			return "history_table_tmp";
-//		}
 		month = StringUtils.isEmpty(month) ? null : month;
+		
+		if (month != null) {
+			List<Statistics> statistics = consumptionDetailService.getStatistics(month);
+			Collections.sort(statistics);
+			model.addAttribute("statistics", statistics);
+		}
+		
 		if ("yes".equals(toFirstPage)) { // 添加、删除、修改后返回首页  局部刷新   刷新总页数
 
 			buildModel(condition, "1", null, null, model);

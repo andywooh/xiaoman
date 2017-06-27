@@ -12,7 +12,7 @@
 <div id="login-modal">
 	<div class="modal-dialog">
 		<div class="loginmodal-container">
-			<h1>XX 系  统  登  录</h1><br>
+			<h1>小满</h1><br>
 			<form action="login" method="post">
 				<input type="text" name="username" placeholder="用户名">
 				<input type="password" name="password" placeholder="密码">

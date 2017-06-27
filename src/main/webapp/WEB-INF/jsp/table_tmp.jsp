@@ -1,15 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<div class="">
-	<table>
-		<tbody>
-			<tr class="label label-info">
-				<td>当月总计：</td>
-				<td id=""><fmt:formatNumber value="${totalAmount}" /></td>
-			</tr>
-		</tbody>
-	</table>
+<div class="bs-example-bg-classes1">
+	<p class="bg-success">目前总计：<fmt:formatNumber value="${totalAmount}" /></p>
 </div>		
 <br/>	
 <table id="data_table" class="table table-striped table-hover table-condensed">
@@ -43,3 +36,25 @@
 		<li><a href="#" onclick="toPage(${i})">${i}</a></li>
 	</c:forEach>
 </ul>
+
+</br>
+<div class="bs-example-bg-classes">
+	<p class="bg-success">当月统计</p>
+</div>
+
+<table id="" class="table table-striped table-hover table-condensed">
+		<thead>
+			<tr>
+				<th>类别</th>
+				<th>总计</th>
+			</tr>
+		</thead>
+		<tbody >
+                 	<c:forEach items="${currentStatistics}" var="c">
+				<tr class="">
+					<td>${c.categoryName}</td>
+					<td><fmt:formatNumber value="${c.amount}" /></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+</table>

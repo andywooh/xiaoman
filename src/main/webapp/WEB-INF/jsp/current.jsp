@@ -1,6 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<style>
+
+	.bs-example-bg-classes p {
+	    padding: 10px;
+	    font-size: 20px;
+	}
+
+	.bs-example-bg-classes1 p {
+	    padding: 7px;
+	    font-size: 15px;
+	}	
+
+</style>
+
 <html>
 
 <head>
@@ -35,16 +50,11 @@
 					</div>
 					<br id="data_table_below table-hover table-condensed"/>
 					<div id="data_table">
-						<div class="table table-striped">
-							<table>
-								<tbody>
-									<tr class="label label-info">
-										<td>当月总计：</td>
-										<td id=""><fmt:formatNumber value="${totalAmount}" /></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>		
+						
+						<div class="bs-example-bg-classes1">
+							<p class="bg-success">目前总计：<fmt:formatNumber value="${totalAmount}" pattern=""/></p>
+						</div>	
+
 						<br/>				
 						<table id="" class="table table-striped table-hover table-condensed">
 							<thead>
@@ -79,10 +89,34 @@
 								<li><a href="#" onclick="toPage(${i})">${i}</a></li>
 							</c:forEach>
 						</ul>
+						
+						<br/>
+						
+						<div class="bs-example-bg-classes">
+							<p class="bg-success">当月统计</p>
+						</div>
+						
+						<table id="" class="table table-striped table-hover table-condensed">
+								<thead>
+									<tr>
+										<th>类别</th>
+										<th>总计</th>
+									</tr>
+								</thead>
+								<tbody >
+			                    	<c:forEach items="${currentStatistics}" var="c">
+										<tr class="">
+											<td>${c.categoryName}</td>
+											<td><fmt:formatNumber value="${c.amount}" /></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+						</table>						
 					</div>
 				</div>
 				<!-- 图表区域 -->
 				<div class="col-md-6 column">
+				
 					<div>
 						<img width="80%" src="/static/image/template.jpg"/>
 					</div>

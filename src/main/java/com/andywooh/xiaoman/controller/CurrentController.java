@@ -1,5 +1,7 @@
 package com.andywooh.xiaoman.controller;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.andywooh.xiaoman.bean.ConsumptionDetail;
-import com.andywooh.xiaoman.bean.CurrentStatistics;
+import com.andywooh.xiaoman.bean.Statistics;
 import com.andywooh.xiaoman.bean.Page;
 import com.andywooh.xiaoman.service.CategoryService;
 import com.andywooh.xiaoman.service.ConsumptionDetailService;
@@ -74,7 +76,9 @@ public class CurrentController extends AbstractController {
 		condition4TtlAmt.put("currentMonth", currentMonth);
 		condition4CDs.put("currentMonth", currentMonth);
 		
-		List<CurrentStatistics> currentStatistics = consumptionDetailService.getCurrentStatistics(currentMonth);
+		List<Statistics> currentStatistics = consumptionDetailService.getStatistics(currentMonth);
+//		Collections.shuffle(currentStatistics);
+		 Collections.sort(currentStatistics);
 		Double totalAmount = consumptionDetailService.getTotalAmountByCondition(condition4TtlAmt);
 		
 		model.addAttribute("currentStatistics", currentStatistics);

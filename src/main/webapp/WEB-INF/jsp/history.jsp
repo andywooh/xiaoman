@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<style>
+
+	.bs-example-bg-classes p {
+	    padding: 10px;
+	    font-size: 20px;
+	}
+
+</style>
+
 <html>
 
 <head>
@@ -82,6 +92,29 @@
 							</tbody>
 						</table>
 					<div id="pagination" style="text-align:center;" pagination="pagination_new" pagenumber="${page.currentPage}" totalpage="${page.totalPage}" ></div>  
+					
+					</br>
+					<div class="bs-example-bg-classes">
+						<p class="bg-success">统计</p>
+					</div>
+					
+					<table id="" class="table table-striped table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>类别</th>
+									<th>总计</th>
+								</tr>
+							</thead>
+							<tbody >
+					             <c:forEach items="${statistics}" var="c">
+									<tr class="">
+										<td>${c.categoryName}</td>
+										<td><fmt:formatNumber value="${c.amount}" /></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+					</table>
+
 					</div>		
 				</div>
 			</div>
