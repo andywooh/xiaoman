@@ -27,7 +27,7 @@ public class Statistics implements Comparable<Statistics> {
 		this.amount = amount;
 	}
 
-	@Override
+//	@Override
 	public int compareTo(Statistics o) {
 		if (this.getAmount() > o.getAmount()) {
 			return -1;
