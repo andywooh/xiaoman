@@ -82,27 +82,27 @@ public class CurrentController extends AbstractController {
 		
 		if ("yes".equals(toFirstPage)) { // 添加、删除、修改后返回首页  局部刷新   刷新总页数
 
-			buidModel(condition4CDs, "1", null, model);
+			buildModel(condition4CDs, "1", null, model);
 			return "table_tmp";
 			
 		} else if (keyWord == null && toPage == null) { // 点击当月  整页刷新
 			
-			buidModel(condition4CDs, "1", null, model);
+			buildModel(condition4CDs, "1", null, model);
 			return "current";
 			
 		} else if (keyWord != null && toPage == null) { // 条件查询  局部刷新  刷新总页数
 			
-			buidModel(condition4CDs, "1", keyWord, model);
+			buildModel(condition4CDs, "1", keyWord, model);
 			return "table_tmp";
 		
 		} else if (keyWord != null && toPage != null) { // 条件查询  再翻页  局部刷新    刷新总页数
 			
-			buidModel(condition4CDs, toPage, keyWord, model);
+			buildModel(condition4CDs, toPage, keyWord, model);
 			return "table_tmp";
 			
 		} else if (toPage != null) { // 没有查询条件  点击页码   局部刷新
 			
-			buidModel(condition4CDs, toPage, null, model);
+			buildModel(condition4CDs, toPage, null, model);
 			return "table_tmp";
 			
 		} else {
@@ -111,7 +111,7 @@ public class CurrentController extends AbstractController {
 		
 	}
 	
-	private void buidModel(Map<String, Object> condition4CDs, String toPage, String keyWord, Model model) {
+	private void buildModel(Map<String, Object> condition4CDs, String toPage, String keyWord, Model model) {
 		Page page = buildPage(toPage, keyWord);
 		condition4CDs.put("keyWord", keyWord);
 		condition4CDs.put("page", page);

@@ -62,33 +62,33 @@ public class HistoryController extends AbstractController {
 //		if (toPage != null) {
 //			
 //			Map<String, Object> condition4CDs = Maps.newHashMap();
-//			buidModel(condition4CDs, toPage, null, model);
+//			buildModel(condition4CDs, toPage, null, model);
 //			return "history_table_tmp";
 //		}
 		month = StringUtils.isEmpty(month) ? null : month;
 		if ("yes".equals(toFirstPage)) { // 添加、删除、修改后返回首页  局部刷新   刷新总页数
 
-			buidModel(condition, "1", null, null, model);
+			buildModel(condition, "1", null, null, model);
 			return "history_table_tmp";
 			
 		} else if (keyWord == null && toPage == null) { // 点击历史  整页刷新
 			
-			buidModel(condition, "1", null, null, model);
+			buildModel(condition, "1", null, null, model);
 			return "history";
 			
 		} else if (keyWord != null && toPage == null) { // 条件查询  局部刷新  刷新总页数
 			
-			buidModel(condition, "1", keyWord, month, model);
+			buildModel(condition, "1", keyWord, month, model);
 			return "history_table_tmp";
 		
 		} else if (keyWord != null && toPage != null) { // 条件查询  再翻页  局部刷新    刷新总页数
 			
-			buidModel(condition, toPage, keyWord, month, model);
+			buildModel(condition, toPage, keyWord, month, model);
 			return "history_table_tmp";
 			
 		} else if (toPage != null) { // 没有查询条件  点击页码   局部刷新
 			
-			buidModel(condition, toPage, null, null, model);
+			buildModel(condition, toPage, null, null, model);
 			return "history_table_tmp";
 			
 		} else {
@@ -97,7 +97,7 @@ public class HistoryController extends AbstractController {
 		
 	}
 
-	private void buidModel(Map<String, Object> condition4CDs, String toPage, String keyWord, String month, Model model) {
+	private void buildModel(Map<String, Object> condition4CDs, String toPage, String keyWord, String month, Model model) {
 		Page page = buildPage(toPage, keyWord, month);
 		condition4CDs.put("keyWord", keyWord);
 		condition4CDs.put("month", month);
