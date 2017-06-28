@@ -167,7 +167,11 @@ public class CurrentController extends AbstractController {
 		if (bindingResult.hasErrors()) {
 			return ERROR_INFO;
 		} else {
+			System.out.println("-----------------------------");
+			System.out.println("中文测试");
+			System.out.println("-----------------------------");
 			consumptionDetailService.addConsumptionDetails(cds);
+			System.out.println(cds.get(0).getNote());
 			return null;
 		}
 	}

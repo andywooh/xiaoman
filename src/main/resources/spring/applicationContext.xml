@@ -46,7 +46,7 @@
 	<bean id="mydatasource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="username" value="root"></property>
-		<property name="password" value="root"></property>
+		<property name="password" value="your_password"></property>
 		<property name="url" value="jdbc:mysql://localhost:3306/xiaoman"></property>
 	</bean>
 
