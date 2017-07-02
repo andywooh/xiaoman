@@ -37,33 +37,24 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,1001,'三餐'),(2,1002,'交通'),(3,1003,'服装'),(4,1004,'还贷'),(5,1005,'数码'),(6,1006,'其他'),(37,1008,'测试2'),(38,1009,'AA');
+INSERT INTO `category` VALUES (1,1001,'三餐');
+INSERT INTO `category` VALUES (2,1002,'交通');
+INSERT INTO `category` VALUES (3,1003,'副食');
+INSERT INTO `category` VALUES (4,1004,'育儿');
+INSERT INTO `category` VALUES (5,1005,'服装');
+INSERT INTO `category` VALUES (6,1006,'生活');
+INSERT INTO `category` VALUES (7,1007,'娱乐');
+INSERT INTO `category` VALUES (8,1008,'人际');
+INSERT INTO `category` VALUES (9,1009,'学习');
+INSERT INTO `category` VALUES (10,1010,'健康');
+INSERT INTO `category` VALUES (11,1011,'还贷');
+INSERT INTO `category` VALUES (12,1012,'孝顺');
+INSERT INTO `category` VALUES (13,1013,'通信');
+INSERT INTO `category` VALUES (14,1014,'数码');
+INSERT INTO `category` VALUES (15,1015,'家电');
+INSERT INTO `category` VALUES (16,1016,'出游');
+INSERT INTO `category` VALUES (17,1017,'其他')
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `category_bak`
---
-
-DROP TABLE IF EXISTS `category_bak`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `category_bak` (
-  `id` int(11) DEFAULT NULL,
-  `category_id` int(4) NOT NULL,
-  `category_name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`category_id`),
-  UNIQUE KEY `category_id_UNIQUE` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `category_bak`
---
-
-LOCK TABLES `category_bak` WRITE;
-/*!40000 ALTER TABLE `category_bak` DISABLE KEYS */;
-/*!40000 ALTER TABLE `category_bak` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

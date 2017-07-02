@@ -3,28 +3,11 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
-	<!-- 乱码问题  提交的数据必须是POST请求，否则不起作用-->
- 	<filter>
-	 	<filter-name>encodingfilter</filter-name>
-	 	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-	 	<init-param>
-	 		<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-	 	<init-param>
-	 		<param-name>forceRequestEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	 	<init-param>
-	 		<param-name>forceResponseEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	 
-	<filter-mapping>
-		<filter-name>encodingfilter</filter-name>
-		<url-pattern>/</url-pattern>
-	</filter-mapping>
+	
+	<context-param>  
+		<param-name>contextConfigLocation</param-name>  <!-- 此处为固定写法 -->
+		<param-value>classpath:spring/applicationContext.xml,classpath:spring/spring-security.xml</param-value>
+	</context-param>  
 	
 	<!-- DispatcherServlet -->
 	<servlet>
@@ -43,8 +26,16 @@
 	<!-- 后缀为xx的请求会被springmvc的 DispatcherServlet处理-->
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
-		<url-pattern>/</url-pattern>
+		<!-- 
+			< url-pattern > / </ url-pattern >   不会匹配到*.jsp，即：*.jsp不会进入spring的 DispatcherServlet类 。
+			< url-pattern > /* </ url-pattern > 会匹配*.jsp，会出现返回jsp视图时再次进入spring的DispatcherServlet 类，导致找不到对应的controller所以报404错。 
+		 -->
+		<url-pattern>/</url-pattern>  
 	</servlet-mapping>
+
+	<listener>
+	        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
 	
   	<filter>  
 	    <filter-name>springSecurityFilterChain</filter-name>  
@@ -52,6 +43,21 @@
 	</filter>  
 	<filter-mapping>  
 	    <filter-name>springSecurityFilterChain</filter-name>  
-	    <url-pattern>/</url-pattern>  
+	    <url-pattern>/*</url-pattern>  
+	</filter-mapping>
+
+	<!-- 乱码问题  提交的数据必须是POST请求，否则不起作用-->
+ 	<filter>
+	 	<filter-name>encodingfilter</filter-name>
+	 	<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	 	<init-param>
+	 		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	 
+	<filter-mapping>
+		<filter-name>encodingfilter</filter-name>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 </web-app>

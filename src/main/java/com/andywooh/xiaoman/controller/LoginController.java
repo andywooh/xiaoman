@@ -12,25 +12,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.andywooh.xiaoman.bean.User;
 import com.andywooh.xiaoman.service.IloginService;
 
-@Controller
+//@Controller
 public class LoginController extends AbstractController {
 	
-	@Autowired
-	private IloginService loginService;
-	
-	@RequestMapping(value = "login", method = RequestMethod.POST)
-	public String login(User user) {
-		 boolean isloggin = loginService.login(user);
-		 if	(isloggin) {
-			 return "redirect:current";
-		 } else {
-			 return "errorpage";
-		 }
-	}
-
-
-	// TODO
-	@RequestMapping("/logout")
-	public void logout(User user) {
-	}
+//	@Autowired
+//	private IloginService loginService;
+//	
+//	@RequestMapping(value = "login", method = RequestMethod.POST)
+//	public String login(User user) {
+//		 boolean isloggin = loginService.login(user);
+//		 if	(isloggin) {
+//			 return "redirect:current";
+//		 } else {
+//			 return "errorpage";
+//		 }
+//	}
+//
+//
+//	// TODO
+//	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+//	public String logout(User user) {
+//		return "redirect:login.jsp";
+//	}
 }

@@ -14,7 +14,7 @@ public class Page
 	/**
 	 * 每页的记录数，默认为每页20条记录
 	 */
-	private Integer pageSize = 10;
+	private Integer pageSize = 20;
 	/**
 	 * 总页数
 	 */
